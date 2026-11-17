@@ -2,12 +2,14 @@ import type { ContactContent } from '@content/types'
 import { CalendarCheck, Mail, Phone } from 'lucide-react'
 import Link from 'next/link'
 import CtaBand from '@/components/CtaBand'
+import FaqAccordion from '@/components/FaqAccordion'
 import LocationCard from '@/components/LocationCard'
 import PageHero from '@/components/PageHero'
+import RelatedLinks from '@/components/RelatedLinks'
 import RichText from '@/components/RichText'
 import SectionHeading from '@/components/SectionHeading'
 import { bookingHref } from '@/lib/booking'
-import { type Route, SAFETY_HREF, crumbsOf } from '@/routes'
+import { type Route, SAFETY_HREF, crumbsOf, pathOf } from '@/routes'
 import { site } from '@/site.config'
 
 /**
@@ -37,7 +39,8 @@ export default function ContactTemplate({
     {
       icon: Phone,
       title: 'Telefon',
-      body: site.contact.phone.display,
+      // arbeidsdokument §11: the reception number is still to be confirmed
+      body: `{{OLVE_BEKREFT: telefonnummer på siden | ${site.contact.phone.display}}}`,
       href: site.contact.phone.href,
       primary: false,
     },
@@ -106,6 +109,16 @@ export default function ContactTemplate({
         </div>
       </section>
 
+      {content.faqs.length > 0 && (
+        <section id="faq" className="scroll-mt-28 border-t border-border py-16 md:py-24">
+          <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16 lg:px-8">
+            <SectionHeading eyebrow="Spørsmål og svar" title="Vanlige spørsmål om timebestilling" />
+            <FaqAccordion faqs={content.faqs} path={pathOf(route)} />
+          </div>
+        </section>
+      )}
+
+      <RelatedLinks slugs={content.related} />
       <CtaBand
         title={content.closing.heading}
         lede={content.closing.lede}

@@ -100,10 +100,14 @@ export function faqSchema(faqs: { question: string; answer: string }[], path?: s
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     ...(path ? { '@id': `${absUrl(path)}#faq` } : {}),
-    mainEntity: faqs.map((faq) => ({
-      '@type': 'Question',
-      name: faq.question,
-      acceptedAnswer: { '@type': 'Answer', text: faq.answer },
-    })),
+    // an answer that still carries an unconfirmed fact stays out of the graph whole:
+    // cleaning the token out would leave a broken sentence
+    mainEntity: faqs
+      .filter((faq) => clean(faq.question) === faq.question && clean(faq.answer) === faq.answer)
+      .map((faq) => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+      })),
   }
 }

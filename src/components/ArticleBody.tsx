@@ -39,6 +39,29 @@ export function ArticleSection({ section }: { section: Section }) {
           </ul>
         )}
       </div>
+      {section.entries && (
+        <dl className="mt-6 border-t border-border">
+          {section.entries.map((e) => (
+            <div key={e.term} className="border-b border-border py-4">
+              <dt className="font-sans text-[1.0625rem] font-semibold text-foreground">
+                {e.href ? (
+                  <Link
+                    href={e.href}
+                    className="text-fjord-700 underline decoration-fjord-300 underline-offset-4 hover:decoration-fjord-700"
+                  >
+                    {e.term}
+                  </Link>
+                ) : (
+                  e.term
+                )}
+              </dt>
+              <dd className="mt-1 text-base leading-relaxed text-foreground/85">
+                <RichText text={e.body.text} />
+              </dd>
+            </div>
+          ))}
+        </dl>
+      )}
       {section.link && (
         <p className="mt-5">
           <Link
