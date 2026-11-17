@@ -52,7 +52,7 @@ export const OM_OLVE_CONTENT: PractitionerContent = {
           SRC.doc(10),
         ),
         t(
-          'Nysgjerrigheten på nervesystemet førte meg videre til omfattende etterutdanning gjennom blant annet Carrick Institute, med mye undervisning i Amsterdam. Jeg har bestått eksamen til DACNB, og har i tillegg videreutdannet meg innen vestibulær rehabilitering. Jeg har også deltatt på kliniske opphold i Atlanta i USA og undervist kolleger om svimmelhet og funksjonell nevrologi.',
+          'Nysgjerrigheten på nervesystemet førte meg videre til {{OLVE_BEKREFT: Carrick Institute, ordlyd | omfattende etterutdanning gjennom blant annet Carrick Institute, med mye undervisning i Amsterdam}}. Jeg har bestått eksamen til DACNB, og har i tillegg {{OLVE_BEKREFT: vestibulær rehabilitering, ordlyd | videreutdannet meg innen vestibulær rehabilitering}}. Jeg har også deltatt på kliniske opphold i Atlanta i USA og undervist kolleger om svimmelhet og funksjonell nevrologi.',
           SRC.doc(10),
         ),
       ],
@@ -89,17 +89,17 @@ export const OM_OLVE_CONTENT: PractitionerContent = {
     {
       question: 'Hva betyr DACNB?',
       answer:
-        'DACNB står for Diplomate of the American Chiropractic Neurology Board. Jeg har bestått eksamen til DACNB etter etterutdanning gjennom blant annet Carrick Institute. Tittelen min i Norge er kiropraktor.',
+        'DACNB står for Diplomate of the American Chiropractic Neurology Board. Jeg har bestått eksamen til DACNB etter {{OLVE_BEKREFT: Carrick Institute, ordlyd | etterutdanning gjennom blant annet Carrick Institute}}. Tittelen min i Norge er kiropraktor.',
       source: `${SRC.doc(2)}; ${SRC.doc(10)}`,
     },
     {
-      question: 'Hvor lenge har Olve arbeidet som kiropraktor?',
+      question: 'Hvor lenge har du arbeidet som kiropraktor?',
       answer:
         'Jeg har arbeidet klinisk i mer enn 30 år, etter utdanning i Davenport i Iowa, USA, og praksis ved Stabekk kiropraktiske klinikk.',
       source: SRC.doc(10),
     },
     {
-      question: 'Hvor arbeider Olve?',
+      question: 'Hvor arbeider du?',
       answer:
         'Jeg arbeider ved Limbra Storgata i Lillestrøm. Denne nettsiden er min personlige faglige nettside, ikke Limbra sin.',
       source: `${SRC.doc(2)}; ${SRC.doc(10)}`,

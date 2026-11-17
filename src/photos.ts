@@ -11,6 +11,9 @@
  * The patient in the three VOG photos (vog-pasient-oreplansje, vog-naerbilde,
  * vog-profil) is identifiable. Consent is confirmed internally before launch;
  * until then these photos are preview only.
+ *
+ * `consent`: true when the people shown have agreed to the photo on the site.
+ * src/lib/launch-gate.test.ts stops a production build while any is false.
  */
 export const PHOTOS = {
   /** IMG_0925, cropped to the screen and the top of the head. No face is shown. */
@@ -19,6 +22,8 @@ export const PHOTOS = {
     width: 600,
     height: 618,
     alt: 'Et øye på skjermen, filmet med infrarøde videobriller mens pasienten sitter foran skjermen',
+    // the clinic's own photo; the subject is the screen, no face is shown
+    consent: true,
   },
   /** IMG_0908 */
   'olve-nakken': {
@@ -26,6 +31,8 @@ export const PHOTOS = {
     width: 480,
     height: 640,
     alt: 'Kiropraktor Olve Lyngset peker på nakken på en modell av ryggsøylen',
+    // the clinic's own photo; Olve is the subject
+    consent: true,
   },
   /** IMG_0910: tall, the whole spine model down to the pelvis */
   'olve-ryggsoyle': {
@@ -33,6 +40,8 @@ export const PHOTOS = {
     width: 390,
     height: 800,
     alt: 'Kiropraktor Olve Lyngset sitter med en modell av ryggsøylen og bekkenet og peker på nakkevirvlene',
+    // the clinic's own photo; Olve is the subject
+    consent: true,
   },
   /** IMG_0924 */
   'vog-pasient-oreplansje': {
@@ -40,6 +49,8 @@ export const PHOTOS = {
     width: 713,
     height: 800,
     alt: 'En pasient med videobriller sitter foran en plansje som viser øret og balanseorganet',
+    // identifiable patient; consent not yet confirmed (preview only)
+    consent: false,
   },
   /** IMG_0928 */
   'vog-naerbilde': {
@@ -47,6 +58,8 @@ export const PHOTOS = {
     width: 600,
     height: 800,
     alt: 'Nærbilde av en pasient med videobriller: et kamera foran det ene øyet, det andre øyet dekket',
+    // identifiable patient; consent not yet confirmed (preview only)
+    consent: false,
   },
   /** IMG_0929 */
   'vog-profil': {
@@ -54,6 +67,8 @@ export const PHOTOS = {
     width: 600,
     height: 800,
     alt: 'En pasient med videobriller sett fra siden, foran en plansje over øret',
+    // identifiable patient; consent not yet confirmed (preview only)
+    consent: false,
   },
 } as const
 

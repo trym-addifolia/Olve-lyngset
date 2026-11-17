@@ -14,6 +14,9 @@ import type { PhotoName } from '@/photos'
  * paragraph carries the head keyword), and the dual CTA. `children` is an
  * optional right-hand block (the booking card on landing pages).
  * `cta` (route.heroCta) can hide the booking button or add a second link.
+ * `notice` sits between the intro and the buttons: the compact 113 box on the
+ * pages that carry it, so nobody reaches «Bestill time» past the warning
+ * signs, on a phone or on a wide screen.
  */
 export default function PageHero({
   crumbs,
@@ -25,6 +28,7 @@ export default function PageHero({
   cta,
   tone = 'light',
   photo,
+  notice,
   children,
 }: {
   crumbs: Crumb[]
@@ -37,6 +41,8 @@ export default function PageHero({
   tone?: 'light' | 'mist'
   /** one of the clinic's photos in the right-hand column when there is no `children` block */
   photo?: PhotoName
+  /** a block between the intro and the buttons (the compact 113 box) */
+  notice?: React.ReactNode
   children?: React.ReactNode
 }) {
   const booking = cta?.booking ?? true
@@ -54,6 +60,12 @@ export default function PageHero({
             <p className="mt-6 max-w-prose text-lg leading-relaxed text-foreground/85 md:text-xl md:leading-relaxed">
               <RichText text={intro} />
             </p>
+            {notice && (
+              // data-sticky-after: the mobile booking bar waits until this has been on screen
+              <div className="mt-8 max-w-prose" data-sticky-after="">
+                {notice}
+              </div>
+            )}
             {hasCtas && (
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
                 {booking && (

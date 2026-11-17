@@ -27,7 +27,7 @@ export const HJERNERYSTELSE_CONTENT: InfoContent = {
           SRC.doc(6),
         ),
         t(
-          'Vedvarende plager etter hjernerystelse kalles også postcommotio. Plagene kan ha ulike forklaringer, og jeg fremstiller ikke én forklaringsmodell som årsaken til alle langvarige symptomer.',
+          'Vedvarende plager etter hjernerystelse kalles også postcommotio. Plagene kan ha ulike forklaringer, og de er ikke de samme for alle.',
           `${SRC.doc(6)} (redaksjonell merknad); ${SRC.doc(18)}`,
         ),
       ],

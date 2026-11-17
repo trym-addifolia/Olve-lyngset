@@ -21,6 +21,11 @@ const SISTER_ID = 'les-mer'
  * Info page and the /svimmelhet hub (same anatomy, broader topic): article
  * with table of contents, the 113 box when the content asks for it
  * (`safety`), FAQ, related links and the closing band.
+ *
+ * A `safety` page carries the 113 advice twice: compact in the hero, before
+ * the first «Bestill time» (CLAUDE.md: 113 before any sales), and in full
+ * lower down as #akutt after the article, the target of SAFETY_HREF and the
+ * table of contents (separate heading ids, so the two never collide).
  */
 export default function InfoTemplate({
   route,
@@ -58,6 +63,17 @@ export default function InfoTemplate({
         source={route.slug}
         cta={route.heroCta}
         photo={content.heroPhoto}
+        notice={
+          content.safety ? (
+            <SafetyBox
+              variant="compact"
+              topic={safetyTopic}
+              headingId="ring-113-hero"
+              moreLink={!holdsSafetyAdvice}
+              className="bg-background"
+            />
+          ) : undefined
+        }
       />
 
       {hasBody && (

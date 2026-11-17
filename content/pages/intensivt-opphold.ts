@@ -58,7 +58,6 @@ export const INTENSIVT_OPPHOLD_CONTENT: LandingContent = {
     },
   ],
   showEquipment: false,
-  showPrice: false,
   sections: [
     {
       id: 'hvem',

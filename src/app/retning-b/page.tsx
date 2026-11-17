@@ -1,5 +1,4 @@
-import { CONTENT } from '@content/index'
-import type { HomeContent } from '@content/types'
+import { HOME_CONTENT } from '@content/index'
 import type { Metadata } from 'next'
 import HomeTemplateB from '@/components/templates/HomeTemplateB'
 import { HOME_B } from '@/routes'
@@ -18,5 +17,5 @@ export const metadata: Metadata = {
 }
 
 export default function RetningBPage() {
-  return <HomeTemplateB content={CONTENT[HOME_B.slug] as HomeContent} />
+  return <HomeTemplateB content={HOME_CONTENT} />
 }

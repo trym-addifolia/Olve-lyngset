@@ -1,15 +1,15 @@
 /** @type {import('next').NextConfig} */
 
-// Permanent redirects live in src/routes.ts (REDIRECTS); mirrored here because
-// next.config.js cannot import TypeScript. Keep the two in sync. Empty: a new
-// site has no old URLs (the krystallsyken.no map is out of scope).
-const REDIRECTS = []
+// No redirects: a new site has no old URLs (the krystallsyken.no map is out of
+// scope). Add a redirects() here if that changes.
 
 const isProd = process.env.NODE_ENV === 'production'
 
 // Security headers. CSP allows: own scripts/styles (Next inlines JSON-LD and
-// font CSS), the click-to-load youtube-nocookie frame and its thumbnails,
-// and form posts to the booking provider. Dev needs unsafe-eval for HMR.
+// font CSS) and the click-to-load youtube-nocookie frame and its thumbnails.
+// Booking is a plain navigation (/go/bestill 302s to Solvit), not a form post,
+// and the comment form submits with fetch, so form-action stays 'self'. Dev needs
+// unsafe-eval for HMR.
 const csp = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline'${isProd ? '' : " 'unsafe-eval'"}`,
@@ -40,9 +40,6 @@ const nextConfig = {
   // Cloudflare Workers has no free Next image optimizer; the photos are exported
   // small enough (public/bilder/, long side 1600) to be served as is
   images: { unoptimized: true },
-  async redirects() {
-    return REDIRECTS
-  },
   async headers() {
     return [{ source: '/:path*', headers: securityHeaders }]
   },

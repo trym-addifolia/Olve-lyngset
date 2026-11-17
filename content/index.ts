@@ -30,6 +30,9 @@ export const CONTENT: Record<string, PageContent> = {
   personvern: PERSONVERN_CONTENT,
 }
 
+/** The home content, typed, for the two home routes (no cast from CONTENT). */
+export { HOME_CONTENT }
+
 export function contentFor(slug: string): PageContent | undefined {
   return CONTENT[slug]
 }

@@ -25,4 +25,4 @@ Next.js 15 (App Router, React 18), TypeScript strict, Tailwind 3 med shadcn-komp
 - Ingen priser på siden (`compliance.showPrices = false`).
 - Ved akutt svimmelhet med tegn på slag: 113 først. Rådet står før alt salg på svimmelhet, hjernerystelse og krystallsyke.
 - Bare ekte bilder, aldri stock eller genererte personer.
-- Ingen deploy til olvelyngset.no uten Olves godkjenning av tekstene.
+- Ingen deploy til olvelyngset.no uten Olves godkjenning av tekstene. Lanseringssperren `src/lib/launch-gate.test.ts` (kjøres først i `npm run deploy`) stopper et bygg for produksjonsverten så lenge det finnes `{{OLVE_BEKREFT:`/`{{FASE_B:` i innhold eller config, et bilde uten `consent: true` eller et portrett uten `approvedByOlve`. På forhåndsvisningsverten hopper den over.

@@ -9,7 +9,8 @@
  * workLocation, not a business he runs or a publisher of the site.
  *
  * Compliance (helsepersonelloven § 13):
- * - no "spesialist" wording anywhere, including jobTitle and credentials
+ * - no banned title wording (site.compliance.bannedWords), including jobTitle
+ *   and credentials
  * - Person, not Physician, for a chiropractor
  * - no AggregateRating, no reviews
  * - unconfirmed facts ({{OLVE_BEKREFT}}) never reach the graph
@@ -29,7 +30,6 @@ function clean(text: string): string | undefined {
 
 export function personSchema() {
   const p = site.practitioner
-  const credential = clean(p.hprNumber)
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',
@@ -48,21 +48,13 @@ export function personSchema() {
         postalCode: site.contact.address.postalCode,
         addressCountry: 'NO',
       },
-      geo: {
-        '@type': 'GeoCoordinates',
-        latitude: site.location.geo.latitude,
-        longitude: site.location.geo.longitude,
-      },
+      // no geo: site.location.geo is approximate until checked against Kartverket
     },
-    ...(credential
-      ? {
-          hasCredential: {
-            '@type': 'EducationalOccupationalCredential',
-            credentialCategory: 'Autorisasjon (HPR)',
-            identifier: credential,
-          },
-        }
-      : {}),
+    hasCredential: {
+      '@type': 'EducationalOccupationalCredential',
+      credentialCategory: 'Autorisasjon (HPR)',
+      identifier: p.hprId,
+    },
     ...(p.portrait.src ? { image: absUrl(p.portrait.src) } : {}),
   }
 }

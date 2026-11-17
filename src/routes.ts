@@ -219,13 +219,6 @@ export const ROUTES: readonly Route[] = [
   },
 ]
 
-/**
- * Permanent redirects (next.config.js mirrors this list; it cannot import
- * TypeScript). Empty: the site is new. The krystallsyken.no redirect map is
- * out of scope (design spec).
- */
-export const REDIRECTS: { source: string; destination: string }[] = []
-
 export function pathOf(route: Pick<Route, 'slug'>): string {
   return route.slug === '' ? '/' : `/${route.slug}`
 }

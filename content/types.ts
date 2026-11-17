@@ -101,7 +101,6 @@ export type LandingContent = BaseContent & {
   /** a photo beside the timeline */
   photo?: PhotoRef
   showEquipment: boolean
-  showPrice: boolean
   sections: Section[]
 }
 

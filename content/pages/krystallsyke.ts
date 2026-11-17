@@ -56,7 +56,7 @@ export const KRYSTALLSYKE_CONTENT: InfoContent = {
       heading: 'Når det kan være mer enn krystallsyke',
       body: [
         t(
-          'Krystallsyke kan forekomme samtidig med annen svimmelhet, for eksempel etter en hjernerystelse. Hvis plagene ikke passer med krystallsyke, eller svimmelheten varer også mellom episodene, vurderer jeg andre forklaringer. Ved behov henviser jeg videre til lege.',
+          'Krystallsyke kan forekomme samtidig med annen svimmelhet, for eksempel etter en hjernerystelse. Hvis plagene ikke passer med krystallsyke, eller svimmelheten varer også mellom episodene, vurderer jeg andre forklaringer. Ved behov ber jeg deg kontakte lege.',
           `${SRC.doc(12)} (annen svimmelhet samtidig, når andre årsaker må vurderes)`,
         ),
       ],
@@ -81,7 +81,7 @@ export const KRYSTALLSYKE_CONTENT: InfoContent = {
     {
       question: 'Kan jeg ha krystallsyke og annen svimmelhet samtidig?',
       answer:
-        'Ja. Krystallsyke kan forekomme sammen med annen svimmelhet, for eksempel etter en hjernerystelse. Hvis plagene ikke passer med krystallsyke, vurderer jeg andre forklaringer, og ved behov henviser jeg videre til lege.',
+        'Ja. Krystallsyke kan forekomme sammen med annen svimmelhet, for eksempel etter en hjernerystelse. Hvis plagene ikke passer med krystallsyke, vurderer jeg andre forklaringer, og ved behov ber jeg deg kontakte lege.',
       source: SRC.doc(12),
     },
     {

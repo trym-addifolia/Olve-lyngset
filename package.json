@@ -12,7 +12,8 @@
     "format": "biome format --write .",
     "check": "npm run typecheck && npm run lint && npm run test && npm run build",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "deploy": "opennextjs-cloudflare build && node scripts/cf.mjs opennextjs-cloudflare deploy",
+    "launch-gate": "vitest run src/lib/launch-gate.test.ts",
+    "deploy": "npm run launch-gate && opennextjs-cloudflare build && node scripts/cf.mjs opennextjs-cloudflare deploy",
     "db:migrate": "node scripts/cf.mjs wrangler d1 migrations apply olvelyngset-maling --remote",
     "cf": "node scripts/cf.mjs",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
@@ -27,7 +28,6 @@
     "next": "15.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "resend": "^6.37.0",
     "server-only": "^0.0.1",
     "sonner": "^2.0.8",
     "tailwind-merge": "^3.7.0",

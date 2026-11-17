@@ -47,7 +47,13 @@ export const site = {
 
   contact: {
     phone: {
-      display: '906 66 485',
+      /**
+       * How the number is shown. arbeidsdokument §11: the number to publish
+       * is still to be confirmed, so it is marked like `email`. Every place
+       * that shows the number renders this through RichText; tel/href stay
+       * clean digits.
+       */
+      display: '{{OLVE_BEKREFT: telefonnummer på siden | 906 66 485}}',
       /** digits only, national */
       tel: '90666485',
       href: 'tel:+4790666485',
@@ -97,7 +103,7 @@ export const site = {
   practitioner: {
     name: 'Olve Lyngset',
     firstName: 'Olve',
-    /** never "spesialist", never "nevrokiropraktor" as a title (hpl § 13) */
+    /** the plain title only, never a banned title word (compliance.bannedWords, hpl § 13) */
     title: 'Kiropraktor',
     /** how the title is shown next to the name (arbeidsdokument §1) */
     titleLong: 'Kiropraktor, DACNB',
@@ -106,6 +112,8 @@ export const site = {
       short: 'DACNB',
       long: 'Diplomate of the American Chiropractic Neurology Board',
     },
+    /** the HPR number alone, for the Person schema credential */
+    hprId: '8056501',
     hprNumber: 'Kiropraktor, autorisert helsepersonell. HPR-nummer 8056501',
     /** Palmer is in Davenport, Iowa (arbeidsdokument §10); the year is on the fact-check list */
     education:
@@ -199,7 +207,10 @@ export const site = {
     },
   },
 
-  /** Limbra Storgata, the work location in the Person schema (src/lib/schema.ts) */
+  /**
+   * Limbra Storgata. The coordinates are approximate, so they stay out of the
+   * Person schema (src/lib/schema.ts) until checked against Kartverket.
+   */
   location: {
     city: 'Lillestrøm',
     geo: { latitude: 59.9559, longitude: 11.0495, source: 'omtrentlig, bekreftes mot Kartverket' },
@@ -214,12 +225,18 @@ export const site = {
   } as BookingConfig,
 
   compliance: {
-    /** Decision 2026-11-11: no prices anywhere on the site for now. */
+    /**
+     * Decision 2026-11-11: no prices anywhere on the site. Nothing renders
+     * prices (the price table was removed); a component that ever shows one
+     * must check this switch first.
+     */
     showPrices: false,
     allowTestimonials: false,
     /**
-     * Words that must never appear in the page text (helsepersonelloven § 13).
-     * src/lib/compliance.test.ts checks content/ and src/routes.ts against them.
+     * Words that must never appear in the page text (helsepersonelloven § 13,
+     * plus the deliberate boundaries of arbeidsdokument §18).
+     * src/lib/compliance.test.ts checks src/ and content/ against them; only
+     * this array itself is exempt, so name the words nowhere else.
      */
     bannedWords: [
       'spesialist',
@@ -231,14 +248,9 @@ export const site = {
       'kurere',
       'helt frisk',
       'mirakel',
+      'covid',
     ],
   },
-
-  /**
-   * Price table, rendered only when compliance.showPrices is true. Empty:
-   * the clinic does not publish prices (decision 2026-11-11).
-   */
-  prices: [] as { name: string; price: string; note: string; source: string }[],
 
   /**
    * Theme tokens. tailwind.config.ts reads the hex scales from here, and
@@ -339,8 +351,3 @@ export const site = {
 } as const
 
 export type SiteConfig = typeof site
-
-/** Convenience: is any OLVE_BEKREFT placeholder still present in a string? */
-export function hasPlaceholder(text: string): boolean {
-  return /\{\{[A-Z_]+:[^}]*\}\}/.test(text)
-}

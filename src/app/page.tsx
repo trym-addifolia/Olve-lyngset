@@ -1,5 +1,4 @@
-import { CONTENT } from '@content/index'
-import type { HomeContent } from '@content/types'
+import { HOME_CONTENT } from '@content/index'
 import type { Metadata } from 'next'
 import HomeTemplate from '@/components/templates/HomeTemplate'
 import { HOME } from '@/routes'
@@ -12,5 +11,5 @@ export const metadata: Metadata = {
 }
 
 export default function HomePage() {
-  return <HomeTemplate content={CONTENT[''] as HomeContent} />
+  return <HomeTemplate content={HOME_CONTENT} />
 }

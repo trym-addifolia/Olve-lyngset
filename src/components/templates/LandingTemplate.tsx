@@ -5,7 +5,6 @@ import EquipmentList from '@/components/EquipmentList'
 import FaqAccordion from '@/components/FaqAccordion'
 import PageHero from '@/components/PageHero'
 import Photo from '@/components/Photo'
-import PriceTable from '@/components/PriceTable'
 import ProcessTimeline from '@/components/ProcessTimeline'
 import RelatedLinks from '@/components/RelatedLinks'
 import RichText from '@/components/RichText'
@@ -99,15 +98,6 @@ export default function LandingTemplate({
           <ProcessTimeline steps={content.timeline} />
         </div>
       </section>
-
-      {content.showPrice && site.compliance.showPrices && (
-        <section className="border-t border-border py-16 md:py-24">
-          <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16 lg:px-8">
-            <SectionHeading title="Hva koster det?" />
-            <PriceTable />
-          </div>
-        </section>
-      )}
 
       {content.showEquipment && (
         <section className="border-t border-border py-16 md:py-24">

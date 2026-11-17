@@ -52,8 +52,3 @@ export default function RichText({ text }: { text: string }): ReactNode {
     )
   })
 }
-
-export function hasPlaceholders(text: string): boolean {
-  // a fresh non-global test: the shared /g TOKEN carries lastIndex between calls
-  return /\{\{[A-Z_]+:[^}]*\}\}/.test(text)
-}

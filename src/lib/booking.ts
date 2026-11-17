@@ -21,7 +21,7 @@ export const OUTBOUND_BOOKING_PATH = '/go/bestill'
  * keep their «/»).
  */
 const FIXED_SOURCES = ['cta', 'meny', 'sticky-mobil', 'kontakt:intent'] as const
-const PAGE_PREFIXES = ['hero', 'cta', 'kort', 'side'] as const
+const PAGE_PREFIXES = ['hero', 'cta', 'kort'] as const
 
 export const BOOKING_SOURCES: ReadonlySet<string> = new Set<string>([
   ...FIXED_SOURCES,

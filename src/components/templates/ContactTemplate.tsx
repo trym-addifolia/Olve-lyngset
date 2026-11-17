@@ -39,8 +39,8 @@ export default function ContactTemplate({
     {
       icon: Phone,
       title: 'Telefon',
-      // arbeidsdokument §11: the reception number is still to be confirmed
-      body: `{{OLVE_BEKREFT: telefonnummer på siden | ${site.contact.phone.display}}}`,
+      // display carries its own OLVE_BEKREFT marker until the number is confirmed (§11)
+      body: site.contact.phone.display,
       href: site.contact.phone.href,
       primary: false,
     },
@@ -61,27 +61,38 @@ export default function ContactTemplate({
             {intents.map((it) => {
               const Icon = it.icon
               return (
-                <li key={it.title}>
-                  <a
-                    href={it.href}
-                    className={`group flex h-full flex-col rounded-lg p-6 transition-colors ${
-                      it.primary
-                        ? 'bg-fjord-700 text-white hover:bg-fjord-800'
-                        : 'border-t-2 border-fjord-200 pt-5 hover:border-fjord-700'
-                    }`}
-                  >
-                    <Icon
-                      className={`h-6 w-6 ${it.primary ? 'text-white' : 'text-fjord-700'}`}
-                      aria-hidden="true"
-                      strokeWidth={1.5}
-                    />
-                    <h2 className="mt-4 text-display-sm">{it.title}</h2>
-                    <p
-                      className={`mt-2 text-[0.9375rem] leading-relaxed ${it.primary ? 'text-white/80' : 'text-muted-foreground'}`}
+                // the title is the link, not the whole card: the body can hold an
+                // unconfirmed-fact marker, which is a button of its own
+                <li
+                  key={it.title}
+                  className={`flex h-full flex-col rounded-lg p-6 transition-colors ${
+                    it.primary
+                      ? 'bg-fjord-700 text-white focus-within:bg-fjord-800 hover:bg-fjord-800'
+                      : 'border-t-2 border-fjord-200 pt-5 focus-within:border-fjord-700 hover:border-fjord-700'
+                  }`}
+                >
+                  <Icon
+                    className={`h-6 w-6 ${it.primary ? 'text-white' : 'text-fjord-700'}`}
+                    aria-hidden="true"
+                    strokeWidth={1.5}
+                  />
+                  <h2 className="mt-4 text-display-sm">
+                    <a
+                      href={it.href}
+                      className={`underline decoration-1 underline-offset-4 hover:decoration-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
+                        it.primary
+                          ? 'decoration-white/50 focus-visible:ring-white focus-visible:ring-offset-fjord-700'
+                          : 'decoration-fjord-300 focus-visible:ring-ring'
+                      }`}
                     >
-                      <RichText text={it.body} />
-                    </p>
-                  </a>
+                      {it.title}
+                    </a>
+                  </h2>
+                  <p
+                    className={`mt-2 text-[0.9375rem] leading-relaxed ${it.primary ? 'text-white/80' : 'text-muted-foreground'}`}
+                  >
+                    <RichText text={it.body} />
+                  </p>
                 </li>
               )
             })}
