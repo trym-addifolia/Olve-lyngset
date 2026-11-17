@@ -36,7 +36,7 @@ export default function ReadingProgress() {
     <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 -bottom-px h-[3px]">
       <div
         ref={bar}
-        className="h-full origin-left bg-krystall-500"
+        className="h-full origin-left bg-fjord-500"
         style={{ transform: 'scaleX(0)' }}
       />
     </div>

@@ -19,7 +19,7 @@ export default function EquipmentList({ columns = 2 }: { columns?: 1 | 2 | 3 }) 
             <span className="flex items-baseline gap-3 font-sans text-[1.0625rem] font-semibold text-foreground">
               <span
                 aria-hidden="true"
-                className="inline-block h-2 w-2 shrink-0 -translate-y-0.5 rotate-45 bg-krystall-500"
+                className="inline-block h-2 w-2 shrink-0 -translate-y-0.5 rotate-45 bg-fjord-500"
               />
               {e.name}
             </span>

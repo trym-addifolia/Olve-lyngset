@@ -12,11 +12,12 @@ import {
 } from '@/lib/kommentar/tilgang'
 import { ALLOW_INDEX } from '@/lib/siteUrl'
 import { BOT, deviceOf, tally } from '@/lib/tally'
-import { KNOWN_SLUGS } from '@/routes'
+import { HIDDEN_PATHS, KNOWN_SLUGS } from '@/routes'
 
 /*
  * Middleware: anonymous page tally (D1 site_hits, lib/tally.ts).
- * Counts, never follows: path collapsed to a known slug, channel word,
+ * Counts, never follows: path collapsed to a known slug (nested paths keep
+ * their «/», e.g. svimmelhet/krystallsyke), channel word,
  * mobil/desktop. No IP, no user-agent string, no cookie, no query string.
  */
 
@@ -83,8 +84,11 @@ export async function middleware(request: NextRequest) {
     })
   }
   const response = NextResponse.next()
-  // noindex in the HTTP header too (meta and robots.txt already key off the same switch)
-  if (!ALLOW_INDEX) response.headers.set('X-Robots-Tag', 'noindex, nofollow')
+  // noindex in the HTTP header too (meta and robots.txt already key off the same
+  // switch); preview-only pages (/retning-b) carry it on the production host as well
+  if (!ALLOW_INDEX || HIDDEN_PATHS.has(request.nextUrl.pathname.replace(/\/+$/, ''))) {
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow')
+  }
   return response
 }
 

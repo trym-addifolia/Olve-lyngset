@@ -11,7 +11,7 @@ import SectionHeading from '@/components/SectionHeading'
 import VideoEmbed from '@/components/VideoEmbed'
 import { Button } from '@/components/ui/button'
 import { bookingHref } from '@/lib/booking'
-import { HOME, type Route, pathOf } from '@/routes'
+import { type Route, crumbsOf, pathOf } from '@/routes'
 import { site } from '@/site.config'
 
 /** Single practitioner profile: portrait, facts (title, HPR, education), story, video.
@@ -26,12 +26,7 @@ export default function PractitionerTemplate({
     <>
       <section className="border-b border-border bg-card">
         <div className="mx-auto max-w-7xl px-4 pb-14 pt-6 sm:px-6 md:pb-20 md:pt-8 lg:px-8">
-          <Breadcrumbs
-            items={[
-              { name: HOME.navLabel, path: '/' },
-              { name: route.navLabel, path },
-            ]}
-          />
+          <Breadcrumbs items={crumbsOf(route)} />
           <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
             <PortraitSlot priority className="mx-auto lg:mx-0" />
             <div>
@@ -51,7 +46,9 @@ export default function PractitionerTemplate({
               </dl>
               <div className="mt-8">
                 <Button asChild size="lg">
-                  <a href={bookingHref(`hero:${route.slug}`)}>Book en time</a>
+                  <a href={bookingHref(`hero:${route.slug}`)} data-hero-cta="">
+                    Bestill time
+                  </a>
                 </Button>
               </div>
             </div>
@@ -70,7 +67,7 @@ export default function PractitionerTemplate({
                 <VideoEmbed youtubeId={p.video.youtubeId} title={p.video.title} />
               )}
               <div>
-                <p className="eyebrow mb-3">Utstyr</p>
+                <p className="eyebrow mb-3">Utstyr og tester</p>
                 <EquipmentList columns={1} />
               </div>
             </div>

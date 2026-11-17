@@ -1,44 +1,47 @@
 import { contentFor } from '@content/index'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import BookingTemplate from '@/components/templates/BookingTemplate'
 import ContactTemplate from '@/components/templates/ContactTemplate'
-import ExerciseTemplate from '@/components/templates/ExerciseTemplate'
-import FaqTemplate from '@/components/templates/FaqTemplate'
 import InfoTemplate from '@/components/templates/InfoTemplate'
 import LandingTemplate from '@/components/templates/LandingTemplate'
-import LocalTemplate from '@/components/templates/LocalTemplate'
 import PractitionerTemplate from '@/components/templates/PractitionerTemplate'
 import PrivacyTemplate from '@/components/templates/PrivacyTemplate'
 import { CONTENT_ROUTES, type Route, pathOf, routeBySlug } from '@/routes'
 import { site } from '@/site.config'
 
 /*
- * One dynamic segment renders all 20 non-home routes from the registry.
- * Static params are generated from the registry; unknown slugs 404.
- * Slugs are ASCII now; old æøå slugs 301 in next.config.js. Any slug may arrive raw or percent-encoded depending
- * on the client; routeBySlug() decodes defensively.
+ * One catch-all segment renders every inner page from the registry, nested
+ * ones too (/svimmelhet/krystallsyke): the segments are joined with «/» and
+ * looked up in the registry. Static params come from the registry; anything
+ * else 404s. The home pages have their own routes (src/app/page.tsx and
+ * src/app/retning-b/page.tsx). Segments may arrive raw or percent-encoded;
+ * routeBySlug() decodes defensively.
  */
 export const dynamicParams = false
 
 export function generateStaticParams() {
-  return CONTENT_ROUTES.map((r) => ({ slug: r.slug }))
+  return CONTENT_ROUTES.map((r) => ({ slug: r.slug.split('/') }))
 }
 
-type Props = { params: Promise<{ slug: string }> }
+type Props = { params: Promise<{ slug: string[] }> }
+
+async function routeOf(params: Props['params']): Promise<Route | undefined> {
+  const { slug } = await params
+  return routeBySlug(slug.join('/'))
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params
-  const route = routeBySlug(slug)
+  const route = await routeOf(params)
   if (!route) return {}
   const path = pathOf(route)
+  // titles that already name him («| Olve Lyngset», «Om Olve Lyngset») skip the brand suffix
+  const named = route.title.includes('|') || route.title.includes(site.brand.name)
   return {
-    // titles that already name the sender («| Olve Lyngset») skip the brand template
-    title: route.title.includes('|') ? { absolute: route.title } : route.title,
+    title: named ? { absolute: route.title } : route.title,
     description: route.description,
     alternates: { canonical: path },
     openGraph: {
-      title: `${route.title} | ${site.brand.name}`,
+      title: named ? route.title : `${route.title} | ${site.brand.name}`,
       description: route.description,
       url: path,
     },
@@ -46,9 +49,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function RoutePage({ params }: Props) {
-  const { slug } = await params
-  const route = routeBySlug(slug)
-  const content = route ? contentFor(route.slug) : undefined
+  const route = await routeOf(params)
+  const content = route && !route.hidden ? contentFor(route.slug) : undefined
   if (!route || !content) notFound()
   return renderTemplate(route, content)
 }
@@ -58,18 +60,10 @@ function renderTemplate(route: Route, content: NonNullable<ReturnType<typeof con
     case 'info':
     case 'hub':
       return <InfoTemplate route={route} content={content} />
-    case 'exercise':
-      return <ExerciseTemplate route={route} content={content} />
     case 'landing':
       return <LandingTemplate route={route} content={content} />
-    case 'local':
-      return <LocalTemplate route={route} content={content} />
     case 'practitioner':
       return <PractitionerTemplate route={route} content={content} />
-    case 'booking':
-      return <BookingTemplate route={route} content={content} />
-    case 'faq':
-      return <FaqTemplate route={route} content={content} />
     case 'contact':
       return <ContactTemplate route={route} content={content} />
     case 'privacy':

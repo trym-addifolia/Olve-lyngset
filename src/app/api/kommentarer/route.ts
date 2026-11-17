@@ -8,7 +8,7 @@ import { BASE_URL } from '@/lib/siteUrl'
 export const dynamic = 'force-dynamic'
 
 /*
- * Olve's comments (preview only). The ks_kommentar cookie from the secret link
+ * Olve's comments (preview only). The ol_kommentar cookie from the secret link
  * is required; SameSite=Lax plus the JSON content type keeps other sites out.
  */
 function svar(status: number, data: unknown) {

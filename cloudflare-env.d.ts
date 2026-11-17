@@ -4,8 +4,8 @@
 interface __BaseEnv_CloudflareEnv {
 	DB: D1Database;
 	ASSETS: Fetcher;
-	GITHUB_KOMMENTAR_REPO: "mrwebflower/krystallsyken";
-	WORKER_SELF_REFERENCE: Fetcher /* krystallsyken */;
+	GITHUB_KOMMENTAR_REPO: "trym-addifolia/Olve-lyngset";
+	WORKER_SELF_REFERENCE: Fetcher /* olvelyngset */;
 }
 declare namespace Cloudflare {
 	interface Env extends __BaseEnv_CloudflareEnv {}

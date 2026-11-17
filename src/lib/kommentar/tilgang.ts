@@ -1,6 +1,9 @@
-export const KOMMENTAR_COOKIE = 'ks_kommentar'
+import { site } from '@/site.config'
+
+// per-site prefix (site.brand.cookiePrefix) so krystallsyken.no and this site never collide
+export const KOMMENTAR_COOKIE = `${site.brand.cookiePrefix}_kommentar`
 /** Readable by the browser only to show the toolbar; grants nothing on its own. */
-export const KOMMENTAR_UI_COOKIE = 'ks_kommentar_ui'
+export const KOMMENTAR_UI_COOKIE = `${site.brand.cookiePrefix}_kommentar_ui`
 export const KOMMENTAR_PARAM = 'kommenter'
 export const KOMMENTAR_MAKS_ALDER = 90 * 24 * 60 * 60
 
@@ -12,7 +15,7 @@ export function likeStrenger(a: string, b: string): boolean {
 }
 
 export async function cookieVerdi(nokkel: string): Promise<string> {
-  const data = new TextEncoder().encode(`krystallsyken-kommentar:${nokkel}`)
+  const data = new TextEncoder().encode(`olvelyngset-kommentar:${nokkel}`)
   const hash = await crypto.subtle.digest('SHA-256', data)
   return Array.from(new Uint8Array(hash), (b) => b.toString(16).padStart(2, '0')).join('')
 }

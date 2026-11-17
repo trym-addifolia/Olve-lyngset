@@ -1,13 +1,13 @@
 import type { MetadataRoute } from 'next'
 import { BASE_URL } from '@/lib/siteUrl'
-import { ROUTES, encodePath } from '@/routes'
+import { PUBLIC_ROUTES, encodePath } from '@/routes'
 
 // Bump when a round touches every route.
-const ROUND_DATE = new Date('2026-11-09')
+const ROUND_DATE = new Date('2026-11-17')
 
-/** Every public route from the registry, non-ASCII slugs percent-encoded. */
+/** Every public route from the registry (never /retning-b), nested paths encoded per segment. */
 export default function sitemap(): MetadataRoute.Sitemap {
-  return ROUTES.map((r) => ({
+  return PUBLIC_ROUTES.map((r) => ({
     url: `${BASE_URL}${encodePath(r)}`,
     lastModified: ROUND_DATE,
     priority: r.priority,

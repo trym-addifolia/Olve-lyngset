@@ -1,10 +1,11 @@
 import { Phone } from 'lucide-react'
 import Link from 'next/link'
-import { SAFETY_ROUTE, pathOf } from '@/routes'
+import { SAFETY_HREF } from '@/routes'
 import { cn } from '@/lib/utils'
 
 /*
- * The 113 box. Mandatory on every info page and on the home page. Generic
+ * The 113 box. Mandatory on the svimmelhet, hjernerystelse and krystallsyke
+ * pages (content `safety`), before any booking talk. Generic
  * wording from helsenorge.no's stroke and dizziness guidance; a later round may
  * sharpen it with a source, never soften it. Red is used nowhere else on
  * the site, so the bar alone says "emergency". One flat surface: a red
@@ -28,11 +29,14 @@ export default function SafetyBox({
   variant = 'full',
   className,
   headingId = 'ring-113-heading',
+  moreLink = true,
 }: {
   variant?: 'full' | 'compact'
   className?: string
   /** unique per page when a second copy sits in a viewport-specific slot */
   headingId?: string
+  /** the link to the full advice; off on the page that holds it (/svimmelhet#akutt) */
+  moreLink?: boolean
 }) {
   return (
     <aside
@@ -73,13 +77,18 @@ export default function SafetyBox({
         <a href="tel:113" className={TEL_LINK}>
           113
         </a>
-        . Det er bedre å ringe én gang for mye.{' '}
-        <Link
-          href={pathOf(SAFETY_ROUTE)}
-          className="font-medium text-fjord-700 underline decoration-fjord-300 underline-offset-4 hover:decoration-fjord-700"
-        >
-          Les mer om når svimmelhet er farlig
-        </Link>
+        . Det er bedre å ringe én gang for mye.
+        {moreLink && (
+          <>
+            {' '}
+            <Link
+              href={SAFETY_HREF}
+              className="font-medium text-fjord-700 underline decoration-fjord-300 underline-offset-4 hover:decoration-fjord-700"
+            >
+              Les mer om når svimmelhet må vurderes raskt
+            </Link>
+          </>
+        )}
       </p>
     </aside>
   )

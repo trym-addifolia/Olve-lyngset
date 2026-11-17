@@ -1,19 +1,9 @@
 /** @type {import('next').NextConfig} */
 
-// Legacy redirects live in src/routes.ts (REDIRECTS); mirrored here because
-// next.config.js cannot import TypeScript. Keep the two in sync.
-const REDIRECTS = [
-  { source: '/hjem', destination: '/', statusCode: 301 },
-  { source: '/sitemap.axd', destination: '/sitemap.xml', statusCode: 301 },
-  // cleaner slugs (2026-11-11); æøå both raw and percent-encoded
-  { source: '/om-oss', destination: '/om-meg', statusCode: 301 },
-  { source: '/kontakt-oss', destination: '/kontakt', statusCode: 301 },
-  { source: '/sporsmal', destination: '/sporsmal-og-svar', statusCode: 301 },
-  { source: '/årsaker', destination: '/arsaker', statusCode: 301 },
-  { source: '/%C3%A5rsaker', destination: '/arsaker', statusCode: 301 },
-  { source: '/øvelser', destination: '/ovelser', statusCode: 301 },
-  { source: '/%C3%B8velser', destination: '/ovelser', statusCode: 301 },
-]
+// Permanent redirects live in src/routes.ts (REDIRECTS); mirrored here because
+// next.config.js cannot import TypeScript. Keep the two in sync. Empty: a new
+// site has no old URLs (the krystallsyken.no map is out of scope).
+const REDIRECTS = []
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -47,7 +37,8 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   eslint: { ignoreDuringBuilds: true },
-  // Cloudflare Workers has no free Next image optimizer; two small images, served as is
+  // Cloudflare Workers has no free Next image optimizer; the photos are exported
+  // small enough (public/bilder/, long side 1600) to be served as is
   images: { unoptimized: true },
   async redirects() {
     return REDIRECTS

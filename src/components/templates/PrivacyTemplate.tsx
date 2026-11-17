@@ -2,21 +2,17 @@ import type { PrivacyContent } from '@content/types'
 import ArticleBody from '@/components/ArticleBody'
 import PageHero from '@/components/PageHero'
 import Toc from '@/components/Toc'
-import { HOME, type Route, pathOf } from '@/routes'
+import { type Route, crumbsOf } from '@/routes'
 
 /** Privacy (GDPR art. 13), sections generated from the real data flows. */
 export default function PrivacyTemplate({
   route,
   content,
 }: { route: Route; content: PrivacyContent }) {
-  const path = pathOf(route)
   return (
     <>
       <PageHero
-        crumbs={[
-          { name: HOME.navLabel, path: '/' },
-          { name: route.navLabel, path },
-        ]}
+        crumbs={crumbsOf(route)}
         eyebrow={route.eyebrow}
         h1={route.h1}
         intro={content.intro.text}

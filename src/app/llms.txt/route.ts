@@ -1,28 +1,35 @@
 import { BASE_URL } from '@/lib/siteUrl'
-import { ROUTES, encodePath } from '@/routes'
+import { CONTACT_ROUTE, PUBLIC_ROUTES, encodePath } from '@/routes'
 import { site } from '@/site.config'
 
 export const dynamic = 'force-static'
 
-/** llms.txt generated from the routes registry and site config. */
+/** Strip {{OLVE_BEKREFT: etikett | visning}} to its shown text; drop bare markers. */
+function plain(text: string): string {
+  return text.replace(/\{\{[A-Z_]+:[^}|]*(?:\|\s*([^}]*?))?\s*\}\}/g, (_, shown) => shown ?? '')
+}
+
+/** llms.txt generated from the routes registry (public routes only) and site config. */
 export function GET() {
+  const p = site.practitioner
   const lines = [
     `# ${site.brand.name}`,
     '',
     `> ${site.brand.description}`,
     '',
-    `Behandler: ${site.practitioner.name}. ${site.practitioner.titleLong}.`,
-    `Sted: ${site.contact.address.full} (${site.brand.clinicName}). Telefon ${site.contact.phone.display}.`,
-    'Språk: norsk (bokmål). Innholdet bygger på behandlerens egne tekster med kilder (helsenorge.no, NHI, Store medisinske leksikon).',
+    `${p.name}, ${p.titleLong} (${p.dacnb.long}). ${p.yearsInPractice}.`,
+    `Arbeidssted: ${site.brand.clinicName}, ${site.contact.address.full}. Dette er ${p.firstName}s personlige faglige nettside.`,
+    'Språk: norsk (bokmål). Tekstene bygger på Olves eget arbeidsdokument.',
     '',
     '## Sider',
     '',
-    ...ROUTES.map((r) => `- [${r.title}](${BASE_URL}${encodePath(r)}): ${r.description}`),
+    ...PUBLIC_ROUTES.map((r) => `- [${r.title}](${BASE_URL}${encodePath(r)}): ${r.description}`),
     '',
     '## Viktig',
     '',
-    '- Ved svimmelhet sammen med lammelse, talevansker, synstap eller kraftig hodepine: ring 113.',
-    `- Timebestilling: ${BASE_URL}/bestill-time`,
+    '- Ved plutselig kraftig svimmelhet sammen med lammelse, talevansker, synstap eller kraftig hodepine: ring 113.',
+    `- Timebestilling og kontakt: ${BASE_URL}${encodePath(CONTACT_ROUTE)}`,
+    `- Intensivt rehabiliteringsopphold avtales direkte på e-post: ${plain(site.contact.email)}`,
     '',
   ]
   return new Response(lines.join('\n'), {

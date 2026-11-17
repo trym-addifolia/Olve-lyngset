@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Source_Sans_3, Newsreader } from 'next/font/google'
 import './globals.css'
-import AnimObserver from '@/components/AnimObserver'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import KommentarLag from '@/components/kommentar/KommentarLag'
@@ -9,13 +8,14 @@ import PreviewNotes, { PreviewBar } from '@/components/PreviewNotes'
 import StickyMobileCta from '@/components/StickyMobileCta'
 import JsonLd from '@/components/seo/JsonLd'
 import { Toaster } from '@/components/ui/sonner'
-import { clinicSchema, personSchema, websiteSchema } from '@/lib/schema'
+import { personSchema, websiteSchema } from '@/lib/schema'
 import { ALLOW_INDEX, BASE_URL } from '@/lib/siteUrl'
 import { HOME } from '@/routes'
 import { site } from '@/site.config'
 
-// Newsreader carries the voice (headings, Olve's own sentences); Source Sans 3 (was Atkinson, whose slashed zero reads as Ø)
-// Hyperlegible Next carries everything read while dizzy, on a phone, at 55+.
+// Newsreader carries the voice (headings, Olve's own sentences); Source Sans 3
+// carries everything read while dizzy, on a phone, at 55+. The same pair as
+// krystallsyken.no, so returning patients recognise the family.
 // Norwegian (æ ø å) is covered by the latin subset; latin-ext would double
 // the preloaded font bytes for nothing. One roman file for the serif (no
 // italic, no opsz axis): the hero lede is the LCP and waits on these bytes.
@@ -40,7 +40,8 @@ export const metadata: Metadata = {
   applicationName: site.brand.name,
   openGraph: { siteName: site.brand.name, locale: 'nb_NO', type: 'website' },
   twitter: { card: 'summary_large_image' },
-  // noindex everywhere except on the production host (siteUrl.ts)
+  // noindex everywhere except on the production host (siteUrl.ts); /retning-b
+  // sets its own noindex, which holds on production too
   robots: ALLOW_INDEX ? { index: true, follow: true } : { index: false, follow: false },
 }
 
@@ -53,21 +54,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="no"
-      className={`${display.variable} ${body.variable}`}
-      // the head script adds data-anim before paint; React must not undo it
-      suppressHydrationWarning
-    >
-      <head>
-        {/* JavaScript is on: the explaining animations may wait at their first frame (globals.css) */}
-        <script
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: a fixed one-line flag, no input
-          dangerouslySetInnerHTML={{
-            __html: "document.documentElement.setAttribute('data-anim','')",
-          }}
-        />
-      </head>
+    <html lang="no" className={`${display.variable} ${body.variable}`}>
       <body className="flex min-h-screen flex-col bg-background font-sans text-foreground antialiased">
         <a
           href="#innhold"
@@ -84,10 +71,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Footer />
         <StickyMobileCta />
         <KommentarLag enabled={!ALLOW_INDEX} />
-        <AnimObserver />
         <Toaster position="top-right" />
+        {/* Person + WebSite on every page; each inner page adds its BreadcrumbList (Breadcrumbs) */}
         <JsonLd data={websiteSchema()} />
-        <JsonLd data={clinicSchema()} />
         <JsonLd data={personSchema()} />
       </body>
     </html>

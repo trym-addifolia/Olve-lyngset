@@ -24,20 +24,25 @@ export type BookingConfig =
 
 export const site = {
   brand: {
-    name: 'Krystallsyken.no',
-    shortName: 'Krystallsyken',
+    name: 'Olve Lyngset',
+    shortName: 'Olve Lyngset',
     /** one line under the name in header and footer */
-    tagline: 'Kiropraktor i Lillestrøm',
+    tagline: 'Kiropraktor, DACNB · Lillestrøm',
     legalName: 'LOL AS',
     /** Brønnøysundregistrene: LOL AS, styreleder Leif Olve Lyngset (checked 2026-11-12) */
     orgNumber: '928 308 979',
-    domain: 'www.krystallsyken.no',
+    domain: 'www.olvelyngset.no',
     /** per-site cookie prefix so two template sites never collide */
-    cookiePrefix: 'ks',
-    /** the clinic the practitioner works from (appears on the door sign) */
-    clinicName: 'Limbra Lillestrøm',
+    cookiePrefix: 'ol',
+    /**
+     * Where Olve works. This is his personal professional site, not Limbra's
+     * (arbeidsdokument §2 and §10), so the clinic is a work location only and
+     * never the publisher of the site.
+     */
+    clinicName: 'Limbra Storgata',
+    /** arbeidsdokument §4, metabeskrivelse */
     description:
-      'Undersøkelse og behandling av krystallsyke (BPPV) hos kiropraktor Olve Lyngset i Lillestrøm.',
+      'Olve Lyngset er kiropraktor, DACNB, i Lillestrøm. Grundig undersøkelse og individuelt tilpasset oppfølging ved svimmelhet, hjernerystelse og muskel- og skjelettplager.',
   },
 
   contact: {
@@ -47,10 +52,16 @@ export const site = {
       tel: '90666485',
       href: 'tel:+4790666485',
       e164: '+4790666485',
-      source: 'gammel krystallsyken.no',
+      source: 'krystallsyken site.config (gammel krystallsyken.no)',
     },
-    /** public email is optional; empty string = not shown anywhere */
-    email: '',
+    /**
+     * Not created yet (arbeidsdokument §7 and §11): shown marked until the
+     * mailbox exists and is tested. The intensive stay is enquired about here.
+     */
+    email: '{{OLVE_BEKREFT: e-postadresse (opprettes før lansering) | kontakt@olvelyngset.no}}',
+    /** mailto with the subject from arbeidsdokument §15 */
+    emailHref:
+      'mailto:kontakt@olvelyngset.no?subject=Foresp%C3%B8rsel%20om%20intensivt%20rehabiliteringsopphold',
     address: {
       street: 'Storgata 25B',
       postalCode: '2000',
@@ -65,14 +76,13 @@ export const site = {
   },
 
   /**
-   * Structured opening hours in Europe/Oslo. Feed footer, contact table,
-   * JSON-LD openingHoursSpecification and the open-now logic from here only.
-   * `verified: false` renders the placeholder note instead of the table and
-   * keeps the hours out of JSON-LD.
+   * Structured opening hours in Europe/Oslo. Feed footer, contact table and the
+   * open-now logic from here only. `verified: false` renders the placeholder
+   * note instead of the table.
    */
   hours: {
     timezone: 'Europe/Oslo',
-    /** Olve 2026-11-11 (resultater/olve/2026-11-11-olve-svar-nettsiden.md). Weekend closed (assumed). */
+    /** Olve 2026-11-11, via krystallsyken site.config. Weekend closed (assumed). */
     verified: true,
     note: 'Åpent mandag til fredag.',
     weekly: [
@@ -89,17 +99,45 @@ export const site = {
     firstName: 'Olve',
     /** never "spesialist", never "nevrokiropraktor" as a title (hpl § 13) */
     title: 'Kiropraktor',
-    titleLong: 'Kiropraktor med videreutdanning i nevrologi (DACNB)',
-    hprNumber:
-      'Kiropraktor, autorisert helsepersonell. HPR-nummer 8056501',
-    education: 'Palmer College of Chiropractic, USA, 1993',
-    yearsInPractice: 'Kiropraktor siden 1993, med fokus på svimmelhet de siste 25 årene',
+    /** how the title is shown next to the name (arbeidsdokument §1) */
+    titleLong: 'Kiropraktor, DACNB',
+    /** DACNB is always explained where it is shown at length (Om Olve) */
+    dacnb: {
+      short: 'DACNB',
+      long: 'Diplomate of the American Chiropractic Neurology Board',
+    },
+    hprNumber: 'Kiropraktor, autorisert helsepersonell. HPR-nummer 8056501',
+    /** Palmer is in Davenport, Iowa (arbeidsdokument §10); the year is on the fact-check list */
+    education:
+      'Palmer College of Chiropractic, Davenport, Iowa, USA, {{OLVE_BEKREFT: utdanningsår | 1993}}',
+    yearsInPractice: 'Mer enn 30 års klinisk erfaring',
+    memberships: ['{{OLVE_BEKREFT: NKF-medlemskap | Medlem av Norsk Kiropraktorforening}}'],
+    /** arbeidsdokument §2 and §10; the exact wording is on the fact-check list */
+    furtherEducation: [
+      '{{OLVE_BEKREFT: Carrick Institute, ordlyd | Videreutdanning i funksjonell nevrologi, blant annet gjennom Carrick Institute}}',
+      '{{OLVE_BEKREFT: vestibulær rehabilitering, ordlyd | Videreutdanning i vestibulær rehabilitering}}',
+    ],
+    /**
+     * First consultation lengths (arbeidsdokument §11). To be checked against
+     * the booking setup, hence marked.
+     */
+    consultations: [
+      {
+        name: 'Første konsultasjon ved svimmelhet',
+        duration:
+          '{{OLVE_BEKREFT: varighet første konsultasjon, svimmelhet | omtrent 40 til 50 minutter}}',
+      },
+      {
+        name: 'Første konsultasjon ved plager etter hjernerystelse',
+        duration:
+          '{{OLVE_BEKREFT: varighet første konsultasjon, hjernerystelse | omtrent 50 til 60 minutter}}',
+      },
+    ],
     /** real portrait only; no stock, no generated people. Empty = placeholder slot. */
     portrait: {
       /**
        * Clinic's own photo, taken 2026-11-10 (iPhone, IMG_0907), supplied by
-       * Trym 2026-11-16 to replace the old site's portrait (Greger Flak), whose
-       * rights were never cleared. Exported without EXIF (the original has GPS).
+       * Trym 2026-11-16. Exported without EXIF (the original has GPS).
        */
       src: '/bilder/olve-lyngset.jpg',
       /**
@@ -119,40 +157,38 @@ export const site = {
       /** the clinic's own photo; confirm who took it before launch if a credit is wanted */
       rightsConfirmed: true,
     },
+    /** Off on every page until Olve has reviewed it (arbeidsdokument §14). */
     video: {
       youtubeId: '7avfb-lI4Bs',
       title: 'Olve Lyngset forklarer krystallsyke',
-      source: 'gammel krystallsyken.no',
+      source: 'arbeidsdokument §14',
     },
-    /** Concrete equipment. No TRV chair: Olve refers out for it (old /behandling). */
+    /** Concrete equipment and tests (arbeidsdokument §8). */
     equipment: [
       {
-        name: 'Infrarøde videobriller (VOG)',
+        name: 'Videobriller (VOG/VNG)',
         description:
-          'Jeg ser øynene dine i mørket. Det er slik jeg ser etter om det er krystaller, og hvilken buegang de ligger i.',
-        source: 'gammel krystallsyken.no /diagnosering og /behandling; limbra.no (VOG)',
+          'Med videobriller kan jeg se øynene dine i mørket og ved behov gjøre opptak av øyebevegelsene, blant annet nystagmus.',
+        source: 'arbeidsdokument §8',
       },
       {
-        name: 'Videonystagmografi (VNG)',
+        name: 'Sakkadometer',
         description:
-          'Måler øyebevegelsene dine med kamera og datamaskin, så jeg ser hvor nøyaktige de er.',
-        source: 'gammel krystallsyken.no /trening og /øvelser; limbra.no (VNG)',
+          'Måler raske øyebevegelser, for eksempel reaksjonstid, hastighet og presisjon. Resultatene vurderes sammen med øvrige funn og symptomene dine.',
+        source: 'arbeidsdokument §8',
       },
       {
-        name: 'Datastyrt balansetest (CAPS)',
+        name: 'Balanse og koordinasjon',
         description:
-          'Måler hvor stødig du står under ulike forhold, og brukes når svimmelheten har stått lenge. Den gir ikke diagnosen alene, men er en del av puslespillet. {{OLVE_BEKREFT: CAPS i bruk}}',
-        source:
-          'gammel krystallsyken.no /trening og /øvelser (CAPS); video «Generell svimmelhet» jpzmI2ajvZM 02:00, balanseapparatet i videoen antatt CAPS, bekreftes av Olve («gir meg ikke den fulle diagnosen på noen måte. Men det er en del av puslespillet»)',
+          'Balanse på ulike underlag, koordinasjon, evnen til å følge et mål med blikket og samspillet mellom hode- og øyebevegelser.',
+        source: 'arbeidsdokument §8',
       },
     ],
   },
 
+  /** Limbra Storgata, the work location in the Person schema (src/lib/schema.ts) */
   location: {
     city: 'Lillestrøm',
-    area: 'Romerike',
-    region: 'Akershus',
-    areaServed: ['Lillestrøm', 'Romerike', 'Lørenskog', 'Rælingen', 'Skedsmo', 'Oslo'],
     geo: { latitude: 59.9559, longitude: 11.0495, source: 'omtrentlig, bekreftes mot Kartverket' },
   },
 
@@ -169,8 +205,8 @@ export const site = {
     showPrices: false,
     allowTestimonials: false,
     /**
-     * Words that must never appear in the page text
-     * (helsepersonelloven § 13).
+     * Words that must never appear in the page text (helsepersonelloven § 13).
+     * src/lib/compliance.test.ts checks content/ and src/routes.ts against them.
      */
     bannedWords: [
       'spesialist',
@@ -197,7 +233,7 @@ export const site = {
    */
   theme: {
     fonts: { display: 'Newsreader', body: 'Source Sans 3' },
-    /** primary: the petrol from the practitioner's old site and logo; buttons, links */
+    /** primary: the petrol shared with krystallsyken.no; buttons, links */
     fjord: {
       DEFAULT: '#12515F',
       50: '#EEF5F5',
@@ -212,8 +248,42 @@ export const site = {
       900: '#082A32',
     },
     /**
-     * krystall: the orange of the old crystal logo. It means one thing: the
-     * crystals (illustrations, list marks, step marks). Never buttons, never text blocks.
+     * moss: the accent of home direction A («To dører»). A muted green beside
+     * the petrol; 700 and darker pass as text on paper.
+     */
+    moss: {
+      DEFAULT: '#4F663A',
+      50: '#F2F5EE',
+      100: '#E1E9D8',
+      200: '#C4D3B3',
+      300: '#A1B888',
+      400: '#7F9C63',
+      500: '#647F4A',
+      600: '#4F663A',
+      700: '#3F5130',
+      800: '#334128',
+      900: '#283320',
+    },
+    /**
+     * ochre: the accent of home direction B («Det er hjelp å få»). Warm, never
+     * orange; 700 and darker pass as text on paper.
+     */
+    ochre: {
+      DEFAULT: '#B98325',
+      50: '#FBF5E9',
+      100: '#F5E6C6',
+      200: '#EBCD8D',
+      300: '#DFB25A',
+      400: '#D19A37',
+      500: '#B98325',
+      600: '#99691C',
+      700: '#7A5319',
+      800: '#5F4118',
+      900: '#493215',
+    },
+    /**
+     * krystall: the orange of krystallsyken.no. Used ONLY on
+     * /svimmelhet/krystallsyke, as the link to the sister site.
      */
     krystall: {
       DEFAULT: '#E2632B',
@@ -224,7 +294,7 @@ export const site = {
       700: '#A8431A',
       900: '#5E260F',
     },
-    /** amber: exercise warnings only */
+    /** amber: the visible marker for unconfirmed facts (.placeholder) and the OG card rule */
     ember: {
       DEFAULT: '#C2703E',
       50: '#FBF3EC',
@@ -250,7 +320,7 @@ export const site = {
     },
     /** ground: warm linen, neither cream nor clinic white; the petrol lives in type and dark grounds */
     paper: '#F5F3EE',
-    /** haze: the alternate section ground and the mat behind illustrations */
+    /** haze: the alternate section ground and the mat behind photos */
     mist: '#E3EBEA',
   },
 } as const

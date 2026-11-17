@@ -1,9 +1,9 @@
-import { Figure } from '@content/illustrations'
 import type { Section } from '@content/types'
 import Link from 'next/link'
+import Photo from '@/components/Photo'
 import RichText from '@/components/RichText'
 
-/** Long-form sections: kicker + H2 (anchor) + lede + paragraphs + bullets. */
+/** Long-form sections: kicker + H2 (anchor) + lede + optional photo + paragraphs + bullets. */
 export function ArticleSection({ section }: { section: Section }) {
   return (
     <section id={section.id} className="scroll-mt-28">
@@ -16,8 +16,8 @@ export function ArticleSection({ section }: { section: Section }) {
           <RichText text={section.lede} />
         </p>
       )}
-      {section.canal && (
-        <Figure name="buegangene-ute" canal={section.canal} className="mt-5 w-full max-w-[11rem]" />
+      {section.photo && (
+        <Photo name={section.photo.name} caption={section.photo.caption} className="mt-6" />
       )}
       <div className="prose-site mt-5">
         {section.body.map((p) => (

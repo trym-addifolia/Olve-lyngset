@@ -3,7 +3,8 @@ import { site } from './src/site.config'
 
 /*
  * Token architecture (kept from the template): CSS semantic variables for
- * shadcn + three named brand scales (fjord, ember, ink) + two neutrals. The
+ * shadcn + named brand scales (fjord, the home accents moss and ochre,
+ * krystall for the sister-site link, ember, ink) + two neutrals. The
  * hex values come from site.config.ts theme; globals.css mirrors the HSL
  * semantic tokens. No hex literals anywhere else in src/.
  */
@@ -19,6 +20,8 @@ export default {
       },
       colors: {
         fjord: site.theme.fjord,
+        moss: site.theme.moss,
+        ochre: site.theme.ochre,
         krystall: site.theme.krystall,
         ember: site.theme.ember,
         ink: site.theme.ink,

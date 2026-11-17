@@ -23,7 +23,7 @@ async function gh<T>(m: KommentarMiljo, sti: string, init?: RequestInit): Promis
       Authorization: `Bearer ${m.token}`,
       Accept: 'application/vnd.github+json',
       'X-GitHub-Api-Version': '2022-11-28',
-      'User-Agent': 'krystallsyken-kommentarer',
+      'User-Agent': 'olvelyngset-kommentarer',
       ...(init?.body ? { 'Content-Type': 'application/json' } : {}),
     },
   })

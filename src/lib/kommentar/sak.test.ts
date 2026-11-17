@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { lesSak, sakTekst, sakTittel, sideLenke, statusFra } from './sak'
 import type { NyKommentar } from './typer'
 
-const BASE = 'https://krystallsyken.hei-0de.workers.dev'
+const BASE = 'https://olvelyngset.hei-0de.workers.dev'
 
 const ny: NyKommentar = {
   plassering: {

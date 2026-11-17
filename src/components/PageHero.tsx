@@ -1,12 +1,13 @@
-import { Figure, type FigureName } from '@content/illustrations'
 import Link from 'next/link'
 import Breadcrumbs, { type Crumb } from '@/components/Breadcrumbs'
+import Photo from '@/components/Photo'
 import RichText from '@/components/RichText'
 import SectionHeading from '@/components/SectionHeading'
 import { Button } from '@/components/ui/button'
 import { bookingHref } from '@/lib/booking'
 import type { Route } from '@/routes'
 import { cn } from '@/lib/utils'
+import type { PhotoName } from '@/photos'
 
 /**
  * Hero for every non-home page: breadcrumbs, kicker, H1, intro (the first
@@ -23,7 +24,7 @@ export default function PageHero({
   showCtas = true,
   cta,
   tone = 'light',
-  figure,
+  photo,
   children,
 }: {
   crumbs: Crumb[]
@@ -34,8 +35,8 @@ export default function PageHero({
   showCtas?: boolean
   cta?: Route['heroCta']
   tone?: 'light' | 'mist'
-  /** a drawing in the right-hand column when there is no `children` block (desktop only) */
-  figure?: FigureName
+  /** one of the clinic's photos in the right-hand column when there is no `children` block */
+  photo?: PhotoName
   children?: React.ReactNode
 }) {
   const booking = cta?.booking ?? true
@@ -58,7 +59,7 @@ export default function PageHero({
                 {booking && (
                   <Button asChild size="lg">
                     <a href={bookingHref(`hero:${source}`)} data-hero-cta="">
-                      Book en time
+                      Bestill time
                     </a>
                   </Button>
                 )}
@@ -71,13 +72,11 @@ export default function PageHero({
             )}
           </div>
           {children && <div>{children}</div>}
-          {!children && figure && (
-            <Figure
-              name={figure}
-              ground={tone === 'mist' ? 'paper' : 'card'}
-              labels={figure !== 'brillene'}
-              className="mx-auto w-full max-w-[15rem] sm:max-w-sm lg:mx-0 lg:max-w-sm lg:justify-self-end"
-            />
+          {!children && photo && (
+            // the wrapper sets the width: Photo caps itself at its display size inline
+            <div className="mx-auto w-full max-w-[15rem] sm:max-w-xs lg:mx-0 lg:max-w-sm lg:justify-self-end">
+              <Photo name={photo} priority />
+            </div>
           )}
         </div>
       </div>

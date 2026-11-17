@@ -1,7 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  // Addifolia account (CLOUDFLARE_ACCOUNT_ID in the local .env); never the Plastiks login
-  "name": "krystallsyken",
+  // Addifolia account (CLOUDFLARE_ACCOUNT_ID in .cloudflare.env); never the Plastiks login
+  "name": "olvelyngset",
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-10-28",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
@@ -13,23 +13,27 @@
     {
       // OpenNext calls back into its own Worker (cache revalidation)
       "binding": "WORKER_SELF_REFERENCE",
-      "service": "krystallsyken"
+      "service": "olvelyngset"
     }
   ],
   "d1_databases": [
     {
       // anonymous tallies: site_hits and booking_clicks (migrations/)
       "binding": "DB",
-      "database_name": "krystallsyken-maling",
-      "database_id": "bd0b1909-c49a-4ce2-b97a-53aca995684f",
+      "database_name": "olvelyngset-maling",
+      // PLACEHOLDER until the deploy step runs `npm run cf -- wrangler d1 create
+      // olvelyngset-maling` and pastes the real id here. Build, typecheck and
+      // `npm run dev` (local D1) do not read it; `npm run db:migrate` and
+      // `npm run deploy` fail until it is set.
+      "database_id": "TODO-create",
       "migrations_dir": "migrations"
     }
   ],
-  // preview host until launch: krystallsyken.hei-0de.workers.dev
+  // preview host until launch: olvelyngset.hei-0de.workers.dev (noindex)
   "workers_dev": true,
   "preview_urls": false,
   "observability": { "enabled": true },
   // Olve's comments become issues here (src/lib/kommentar/github.ts). Secrets:
   // KOMMENTAR_NOKKEL and GITHUB_KOMMENTAR_TOKEN (wrangler secret put).
-  "vars": { "GITHUB_KOMMENTAR_REPO": "mrwebflower/krystallsyken" }
+  "vars": { "GITHUB_KOMMENTAR_REPO": "trym-addifolia/Olve-lyngset" }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "krystallsyken",
+  "name": "olvelyngset",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -13,7 +13,7 @@
     "check": "npm run typecheck && npm run lint && npm run test && npm run build",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy": "opennextjs-cloudflare build && node scripts/cf.mjs opennextjs-cloudflare deploy",
-    "db:migrate": "node scripts/cf.mjs wrangler d1 migrations apply krystallsyken-maling --remote",
+    "db:migrate": "node scripts/cf.mjs wrangler d1 migrations apply olvelyngset-maling --remote",
     "cf": "node scripts/cf.mjs",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },

@@ -1,444 +1,241 @@
 /*
- * Routes registry: the single list of public URLs. It feeds the header and
- * footer navigation, the sitemap, llms.txt, the middleware slug set, the route
- * checks and the per-page title/H1 pairs, so a page can
- * never exist in one place and be missing in another.
+ * Routes registry: the single list of URLs. It feeds the header and footer
+ * navigation, the sitemap, llms.txt, the middleware slug set, the breadcrumbs
+ * and the per-page title/H1 pairs, so a page can never exist in one place and
+ * be missing in another.
  *
- * Titles, H1s, eyebrows and CTAs are set here; ad groups follow
- * resultater/plan/ADS-PLAN.md.
- * Slugs are ASCII since 2026-11-11 (old æøå slugs 301 here); encodePath() stays for safety when a
- * percent-encoded form is required (sitemap, llms.txt).
+ * Slugs, templates, nav and H1s are locked by the plan
+ * (docs/superpowers/plans/2026-11-17-olvelyngset.md, «Route registry»). H1s,
+ * titles and descriptions come from Olve's working document
+ * (docs/olve/olvelyngset_nettside_arbeidsdokument.md, cited «§N»), dashes
+ * rewritten. Slugs are ASCII and may be nested («svimmelhet/krystallsyke»);
+ * the catch-all route joins the segments with «/».
  */
 
 export type Template =
   | 'home'
+  /** home direction B, served at /retning-b on the preview only */
+  | 'home-b'
   | 'info'
   | 'hub'
-  | 'exercise'
   | 'landing'
-  | 'local'
   | 'practitioner'
-  | 'booking'
-  | 'faq'
   | 'contact'
   | 'privacy'
 
-export type NavGroup = 'main' | 'fag' | 'footer'
+export type NavGroup = 'main' | 'footer'
 
 export type Route = {
-  /** URL segment without leading slash; '' for the home page */
+  /** path without leading slash; '' for the home page; nested with «/» */
   slug: string
-  /** title tag (the template adds the brand suffix except on home) */
+  /**
+   * title tag. The template adds « | Olve Lyngset» unless the title already
+   * names him or carries its own «|».
+   */
   title: string
   h1: string
   eyebrow: string
   description: string
   template: Template
-  /** Google Ads group (ADS-PLAN.md); undefined = organic only */
-  adGroup?: string
-  /** pages that must never receive ads (safety intent) */
-  noAds?: boolean
   nav: NavGroup[]
-  /** short label for menus and cards */
+  /** short label for menus, breadcrumbs and cards */
   navLabel: string
   /**
-   * Hero buttons. Undefined = «Book en time» only. booking:false hides the
-   * booking button; secondary adds a second link. Both false/undefined = no
-   * buttons in the hero.
+   * Hero buttons. Undefined = «Bestill time» only. booking:false hides the
+   * booking button; secondary adds a second link.
    */
   heroCta?: { booking: boolean; secondary?: { label: string; href: string } }
-  /** topic for «Vanlige spørsmål om ...» when navLabel is not good bokmål there */
+  /** topic for «Vanlige spørsmål om ...» when the nav label is not good bokmål there */
   faqTopic?: string
-  /** head keywords from resultater/sokeord/keyword-map.csv target_url */
-  keywords: string[]
+  /**
+   * Preview-only page (home direction B): noindex, never in the sitemap,
+   * llms.txt or menus, and its title is marked «[Forhåndsvisning B]».
+   */
+  hidden?: boolean
   priority: number
   changeFrequency: 'weekly' | 'monthly' | 'yearly'
-  /** slug existed on the old site and ranks; keep forever */
-  legacy: boolean
 }
+
+const HOME_TITLE = 'Olve Lyngset | Kiropraktor i Lillestrøm, svimmelhet og hjernerystelse'
+const HOME_H1 = 'Svimmelhet, hjernerystelse eller plager som ikke slipper taket?'
+const HOME_EYEBROW = 'Olve Lyngset, kiropraktor · Limbra Storgata, Lillestrøm'
+const HOME_DESCRIPTION =
+  'Olve Lyngset er kiropraktor, DACNB, i Lillestrøm. Grundig undersøkelse og individuelt tilpasset oppfølging ved svimmelhet, hjernerystelse og muskel- og skjelettplager.'
 
 export const ROUTES: readonly Route[] = [
   {
     slug: '',
-    title: 'Krystallsyke (BPPV) i Lillestrøm | Kiropraktor Olve Lyngset',
-    h1: 'Er det krystaller, og på hvilken side? Det finner jeg ut.',
-    eyebrow: 'Krystallsyke i Lillestrøm · Olve Lyngset, kiropraktor',
-    description:
-      'Krystallsyke (BPPV) undersøkes og behandles av kiropraktor Olve Lyngset i Lillestrøm. Nettbooking, videobriller og en tydelig plan for første time.',
+    title: HOME_TITLE,
+    h1: HOME_H1,
+    eyebrow: HOME_EYEBROW,
+    description: HOME_DESCRIPTION,
     template: 'home',
-    adGroup: 'AG1',
     nav: ['main'],
     navLabel: 'Hjem',
-    keywords: ['krystallsyke', 'krystallsyken', 'bppv'],
     priority: 1.0,
     changeFrequency: 'monthly',
-    legacy: true,
-  },
-  {
-    slug: 'hva-er-krystallsyken',
-    title: 'Hva er krystallsyke? Krystaller i øret, forklart enkelt',
-    h1: 'Hva er krystallsyken?',
-    eyebrow: 'Krystaller i øret',
-    heroCta: { booking: true, secondary: { label: 'Les om symptomene', href: '/symptomer' } },
-    description:
-      'Krystallsyke (BPPV) er løse kalkkrystaller i det indre øret som gir svimmelhet når du snur hodet. Slik henger det sammen.',
-    template: 'info',
-    nav: ['fag'],
-    navLabel: 'Hva er krystallsyken?',
-    faqTopic: 'krystallsyken',
-    keywords: ['hva er krystallsyke', 'krystaller i øret'],
-    priority: 0.8,
-    changeFrequency: 'monthly',
-    legacy: true,
-  },
-  {
-    slug: 'symptomer',
-    title: 'Krystallsyke symptomer: svimmel når du snur deg i sengen',
-    h1: 'Krystallsyke: symptomer når alt går rundt',
-    eyebrow: 'Slik kjennes det',
-    heroCta: {
-      booking: true,
-      secondary: { label: 'Er det farlig? Se tegnene', href: '/er-det-farlig' },
-    },
-    description:
-      'Svimmel når du legger deg ned, snur deg i sengen eller ser opp? Dette er de vanlige symptomene på krystallsyke, og slik skiller de seg fra annen svimmelhet.',
-    template: 'info',
-    adGroup: 'AG5',
-    nav: ['fag'],
-    navLabel: 'Symptomer',
-    keywords: [
-      'krystallsyke symptomer',
-      'svimmel når jeg legger meg ned',
-      'krystallsyke og tretthet',
-    ],
-    priority: 0.8,
-    changeFrequency: 'monthly',
-    legacy: true,
-  },
-  {
-    slug: 'arsaker',
-    title: 'Krystallsyke årsak: hvorfor krystallene løsner',
-    h1: 'Hvorfor får man krystallsyke?',
-    eyebrow: 'Årsaker',
-    description:
-      'Hvorfor løsner krystallene i det indre øret? Ofte uten klar grunn; alder, slag mot hodet og sengeleie er kjente årsaker, og mange opplever at det kom i en stressperiode.',
-    template: 'info',
-    nav: ['fag'],
-    navLabel: 'Årsaker',
-    keywords: ['krystallsyke årsak', 'hvorfor får man krystallsyke', 'krystallsyke stress'],
-    priority: 0.8,
-    changeFrequency: 'monthly',
-    legacy: true,
-  },
-  {
-    slug: 'diagnosering',
-    title: 'Nystagmus og Dix-Hallpike: slik undersøkes krystallsyke',
-    h1: 'Slik finner jeg ut om det er krystallsyke',
-    eyebrow: 'Nystagmus og videobriller',
-    description:
-      'Dix-Hallpike-testen og videobriller viser øyebevegelsene (nystagmus) som viser om det er krystallsyke, og hvilken buegang det gjelder.',
-    template: 'info',
-    nav: ['fag'],
-    navLabel: 'Diagnosering',
-    keywords: ['nystagmus', 'dix hallpikes'],
-    priority: 0.8,
-    changeFrequency: 'monthly',
-    legacy: true,
-  },
-  {
-    slug: 'buegangene',
-    title: 'Buegang: bakre, horisontal og fremre ved krystallsyke',
-    h1: 'Hvilken buegang gjelder det?',
-    eyebrow: 'Buegangene',
-    description:
-      'Krystallene kan ligge i bakre, horisontal eller fremre buegang. Det avgjør hvilken manøver som hjelper, og hvorfor øvelser hjemme ikke alltid virker.',
-    template: 'info',
-    nav: ['fag'],
-    navLabel: 'Buegangene',
-    keywords: ['buegang', 'horisontal buegang'],
-    priority: 0.7,
-    changeFrequency: 'monthly',
-    legacy: false,
-  },
-  {
-    slug: 'behandling',
-    title: 'Krystallsyke behandling i Lillestrøm | Olve Lyngset',
-    h1: 'Krystallsyke: behandling i Lillestrøm',
-    eyebrow: 'Behandling',
-    description:
-      'Behandling av krystallsyke etter undersøkelse med infrarøde videobriller. Først ser jeg om det er krystaller, på hvilken side og i hvilken buegang. Så velger jeg manøveren som passer. Kiropraktor Olve Lyngset, Lillestrøm.',
-    template: 'landing',
-    adGroup: 'AG2',
-    nav: ['main'],
-    navLabel: 'Behandling',
-    keywords: ['krystallsyke behandling', 'trv stol', 'kiropraktor krystallsyke'],
-    priority: 0.9,
-    changeFrequency: 'monthly',
-    legacy: true,
-  },
-  {
-    slug: 'kommer-tilbake',
-    title: 'Langvarig krystallsyke: når det ikke går over',
-    h1: 'Langvarig krystallsyke som ikke går over?',
-    eyebrow: 'Når det ikke går over',
-    description:
-      'Har du prøvd øvelser uten at svimmelheten gir seg, eller kommer den tilbake? Ofte handler det om hvilken buegang krystallene ligger i.',
-    template: 'landing',
-    adGroup: 'AG3',
-    nav: ['fag'],
-    navLabel: 'Kommer tilbake',
-    faqTopic: 'langvarig krystallsyke',
-    keywords: ['langvarig krystallsyke', 'kronisk krystallsyke'],
-    priority: 0.9,
-    changeFrequency: 'monthly',
-    legacy: false,
-  },
-  {
-    slug: 'ovelser',
-    title: 'Krystallsyke øvelser: Epley, Semont og rullemanøver',
-    h1: 'Øvelser for krystallsyke',
-    eyebrow: 'Øvelser hjemme',
-    heroCta: { booking: false },
-    description:
-      'Epley, Semont og rullemanøver steg for steg, og hvorfor det er lurt å vite hvilken buegang det gjelder før du begynner.',
-    template: 'exercise',
-    nav: ['fag'],
-    navLabel: 'Øvelser',
-    keywords: ['krystallsyke øvelser', 'epley', 'kjerringråd krystallsyke'],
-    priority: 0.9,
-    changeFrequency: 'monthly',
-    legacy: true,
-  },
-  {
-    slug: 'trening',
-    title: 'Brandt-Daroff: trening etter krystallsyke',
-    h1: 'Trening etter krystallsyke',
-    eyebrow: 'Brandt-Daroff',
-    description: 'Brandt-Daroff-øvelsene og hvordan balansen trenes opp igjen etter krystallsyke.',
-    template: 'exercise',
-    nav: ['fag'],
-    navLabel: 'Trening',
-    keywords: ['brandt daroff', 'krystallsyke trening'],
-    priority: 0.8,
-    changeFrequency: 'monthly',
-    legacy: true,
-  },
-  {
-    slug: 'varighet',
-    title: 'Krystallsyke varighet: hvor lenge varer det?',
-    h1: 'Hvor lenge varer krystallsyke?',
-    eyebrow: 'Varighet',
-    description:
-      'Hvor lenge varer et anfall, hvor lenge varer sykdommen, og når bør du få det undersøkt? Om varighet og sykemelding ved krystallsyke.',
-    template: 'info',
-    nav: ['fag'],
-    navLabel: 'Varighet',
-    keywords: [
-      'krystallsyke varighet',
-      'hvor lenge varer krystallsyke',
-      'krystallsyke sykemelding',
-    ],
-    priority: 0.8,
-    changeFrequency: 'monthly',
-    legacy: false,
-  },
-  {
-    slug: 'er-det-farlig',
-    title: 'Plutselig svimmel: når er det farlig?',
-    h1: 'Er svimmelheten farlig?',
-    eyebrow: 'Plutselig svimmelhet',
-    heroCta: {
-      booking: false,
-      secondary: { label: 'Les om krystallsyke', href: '/hva-er-krystallsyken' },
-    },
-    description:
-      'Plutselig svimmelhet er sjelden farlig, men noen tegn skal du ringe 113 for. Her er listen, og hva som peker mot krystallsyke.',
-    template: 'info',
-    noAds: true,
-    nav: ['fag'],
-    navLabel: 'Er det farlig?',
-    faqTopic: 'plutselig svimmelhet',
-    keywords: ['plutselig svimmelhet', 'akutt svimmelhet'],
-    priority: 0.8,
-    changeFrequency: 'monthly',
-    legacy: false,
   },
   {
     slug: 'svimmelhet',
-    title: 'Svimmelhet og vertigo: vanlige årsaker, og når du ringer 113',
-    h1: 'Svimmelhet, og hva det kan være',
-    eyebrow: 'Svimmelhet',
-    heroCta: {
-      booking: true,
-      secondary: { label: 'Er det farlig? Se tegnene', href: '/er-det-farlig' },
-    },
+    title: 'Svimmelhet og balanseproblemer | Olve Lyngset, Lillestrøm',
+    h1: 'Svimmelhet og balanseproblemer',
+    eyebrow: 'Svimmelhet og balanse',
     description:
-      'Svimmelhet kan komme fra det indre øret, nakken, blodtrykket eller noe annet. En oversikt over de vanlige årsakene, og når du skal ringe 113.',
+      'Langvarig svimmelhet, ustøhet eller balanseproblemer? Les hvordan Olve Lyngset undersøker øyebevegelser, balanse og vestibulær funksjon i Lillestrøm.',
     template: 'hub',
-    nav: ['fag'],
+    nav: ['main'],
     navLabel: 'Svimmelhet',
-    keywords: ['svimmelhet', 'vertigo', 'svimmel'],
-    priority: 0.8,
-    changeFrequency: 'monthly',
-    legacy: true,
-  },
-  {
-    slug: 'nakkesvimmelhet',
-    title: 'Cervikogen svimmelhet: svimmel og stiv nakke',
-    h1: 'Kan nakken gjøre deg svimmel?',
-    eyebrow: 'Cervikogen svimmelhet',
-    description:
-      'Stiv nakke og svimmelhet henger ofte sammen. Om cervikogen svimmelhet, og hvordan den skilles fra krystallsyke.',
-    template: 'info',
-    nav: ['fag'],
-    navLabel: 'Nakkesvimmelhet',
-    keywords: ['cervikogen svimmelhet', 'stiv nakke svimmel'],
-    priority: 0.7,
-    changeFrequency: 'monthly',
-    legacy: false,
-  },
-  {
-    slug: 'andre-arsaker',
-    title: 'Menières sykdom, vestibularisnevritt og PPPD',
-    h1: 'Når det ikke er krystallsyke',
-    eyebrow: 'Når det ikke er krystallsyke',
-    heroCta: {
-      booking: false,
-      secondary: { label: 'Hvem bør jeg gå til?', href: '#hvem-gaa-til' },
-    },
-    description:
-      'Menières sykdom, vestibularisnevritt og PPPD kan ligne på krystallsyke. Slik skilles de, og når jeg henviser videre.',
-    template: 'info',
-    nav: ['fag'],
-    navLabel: 'Andre årsaker',
-    faqTopic: 'andre årsaker til svimmelhet',
-    keywords: ['menières sykdom', 'vestibularisnevritt', 'pppd'],
-    priority: 0.7,
-    changeFrequency: 'monthly',
-    legacy: false,
-  },
-  {
-    slug: 'lillestrom',
-    title: 'Krystallsyke i Lillestrøm og på Romerike | Olve Lyngset',
-    h1: 'Krystallsyke i Lillestrøm og på Romerike',
-    eyebrow: 'Lillestrøm og Romerike',
-    description:
-      'Undersøkelse og behandling av krystallsyke i Storgata 25B i Lillestrøm, for deg som bor på Romerike eller i Oslo-området.',
-    template: 'local',
-    adGroup: 'AG4',
-    nav: ['footer'],
-    navLabel: 'Lillestrøm',
-    keywords: ['krystallsyke lillestrøm', 'krystallsyke behandling oslo'],
-    priority: 0.8,
-    changeFrequency: 'monthly',
-    legacy: false,
-  },
-  {
-    slug: 'om-meg',
-    title: 'Olve Lyngset, kiropraktor i Lillestrøm',
-    h1: 'Olve Lyngset, kiropraktor i Lillestrøm',
-    eyebrow: 'Om meg',
-    description:
-      'Kiropraktor Olve Lyngset har arbeidet med svimmelhet og krystallsyke i mange år. Bakgrunn, utdanning og utstyr.',
-    template: 'practitioner',
-    adGroup: 'AG6',
-    nav: ['main'],
-    navLabel: 'Om meg',
-    keywords: ['olve lyngset'],
-    priority: 0.8,
-    changeFrequency: 'yearly',
-    legacy: true,
-  },
-  {
-    slug: 'bestill-time',
-    title: 'Bestill time hos kiropraktor i Lillestrøm, uten henvisning',
-    h1: 'Bestill time for krystallsyke i Lillestrøm',
-    eyebrow: 'Bestilling',
-    description:
-      'Bestill time på nett hos kiropraktor Olve Lyngset i Lillestrøm. Uten henvisning, og hva som skjer på første time.',
-    template: 'booking',
-    nav: ['main'],
-    navLabel: 'Bestill time',
-    keywords: ['kiropraktor henvisning', 'kiropraktor pris', 'kiropraktor helfo'],
     priority: 0.9,
     changeFrequency: 'monthly',
-    legacy: true,
   },
   {
-    slug: 'sporsmal-og-svar',
-    title: 'Spørsmål og svar om krystallsyke: alkohol, medisin, fly',
-    h1: 'Spørsmål og svar om krystallsyke',
-    eyebrow: 'Spørsmål og svar',
+    // §12 gives only the angle; title and description written for this site
+    slug: 'svimmelhet/krystallsyke',
+    title: 'Krystallsyke (BPPV) i Lillestrøm | Olve Lyngset',
+    h1: 'Krystallsyke (BPPV): undersøkelse og behandling',
+    eyebrow: 'Svimmelhet · Krystallsyke',
+    description:
+      'Krystallsyke (BPPV) gir korte anfall av svimmelhet når du snur hodet. Slik undersøker og behandler Olve Lyngset det i Lillestrøm, og hvor du kan lese mer.',
+    template: 'info',
+    nav: [],
+    navLabel: 'Krystallsyke',
+    priority: 0.8,
+    changeFrequency: 'monthly',
+  },
+  {
+    slug: 'hjernerystelse',
+    title: 'Langvarige plager etter hjernerystelse | Olve Lyngset',
+    h1: 'Når plagene etter hjernerystelsen ikke går over',
+    eyebrow: 'Plager etter hjernerystelse',
+    description:
+      'Vedvarende svimmelhet, hodepine eller utmattelse etter hjernerystelse? Olve Lyngset i Lillestrøm tilbyr grundig funksjonsundersøkelse og tilpasset oppfølging.',
+    template: 'info',
     heroCta: {
       booking: true,
-      secondary: { label: 'Les om krystallsyke', href: '/hva-er-krystallsyken' },
+      secondary: { label: 'Les om intensivt opphold', href: '/intensivt-opphold' },
     },
-    description:
-      'Korte svar på de vanlige spørsmålene om krystallsyke, som alkohol, medisin, bilkjøring, fly og hva du kan gjøre selv.',
-    template: 'faq',
-    // in the main menu from xl (no room at lg); in «Alt om krystallsyke» below that
-    nav: ['main', 'fag', 'footer'],
-    navLabel: 'Spørsmål og svar',
-    keywords: ['krystallsyke og alkohol', 'medisin mot svimmelhet'],
-    priority: 0.7,
+    nav: ['main'],
+    navLabel: 'Hjernerystelse',
+    faqTopic: 'plager etter hjernerystelse',
+    priority: 0.9,
     changeFrequency: 'monthly',
-    legacy: false,
+  },
+  {
+    slug: 'intensivt-opphold',
+    title: 'Intensivt rehabiliteringsopphold ved svimmelhet og hjernerystelse',
+    h1: 'Intensivt rehabiliteringsopphold i Lillestrøm',
+    eyebrow: 'Intensivt opphold',
+    description:
+      'Tilpasset intensivt rehabiliteringsopphold i Lillestrøm for utvalgte pasienter med langvarig svimmelhet eller plager etter hjernerystelse. Kontakt Olve Lyngset.',
+    template: 'landing',
+    // §7: the stay cannot be booked as an ordinary online appointment
+    heroCta: { booking: false },
+    nav: ['main'],
+    navLabel: 'Intensivt opphold',
+    faqTopic: 'intensivt rehabiliteringsopphold',
+    priority: 0.8,
+    changeFrequency: 'monthly',
+  },
+  {
+    slug: 'andre-plager',
+    title: 'Kiropraktor i Lillestrøm: rygg, nakke, hodepine og leddplager',
+    h1: 'Kiropraktikk for rygg, nakke og andre muskel- og skjelettplager',
+    eyebrow: 'Vanlig kiropraktikk',
+    description:
+      'Kiropraktor Olve Lyngset undersøker og behandler rygg, nakke, hodepine, skuldre, kjeve, hofter og andre muskel- og skjelettplager ved Limbra Storgata i Lillestrøm.',
+    template: 'info',
+    nav: ['main'],
+    navLabel: 'Andre plager',
+    faqTopic: 'vanlig kiropraktikk',
+    priority: 0.8,
+    changeFrequency: 'monthly',
+  },
+  {
+    slug: 'undersokelse',
+    title: 'Grundig undersøkelse av svimmelhet og balanse | Olve Lyngset',
+    h1: 'Flere vinduer inn i nervesystemet',
+    eyebrow: 'Undersøkelse og metoder',
+    description:
+      'Videobriller (VOG/VNG), sakkadometer og tester av balanse og koordinasjon. Slik undersøker Olve Lyngset langvarig svimmelhet og plager etter hjernerystelse.',
+    template: 'info',
+    nav: ['main'],
+    navLabel: 'Undersøkelse',
+    faqTopic: 'undersøkelsen',
+    priority: 0.8,
+    changeFrequency: 'monthly',
+  },
+  {
+    slug: 'om-olve',
+    title: 'Om Olve Lyngset, kiropraktor, DACNB, i Lillestrøm',
+    h1: 'Om Olve Lyngset',
+    eyebrow: 'Om Olve',
+    description:
+      'Olve Lyngset er kiropraktor, DACNB, med mer enn 30 års klinisk erfaring. Bakgrunn, utdanning og hva som driver ham. Limbra Storgata, Lillestrøm.',
+    template: 'practitioner',
+    nav: ['main'],
+    navLabel: 'Om Olve',
+    priority: 0.8,
+    changeFrequency: 'yearly',
   },
   {
     slug: 'kontakt',
-    title: 'Kontakt Olve Lyngset, kiropraktor i Lillestrøm',
-    h1: 'Hva kan jeg hjelpe deg med?',
+    title: 'Kontakt og timebestilling | Olve Lyngset, Lillestrøm',
+    h1: 'Bestill time hos Olve Lyngset',
     eyebrow: 'Kontakt',
     description:
-      'Book time på nett, finn telefonnummeret, eller finn veien til Storgata 25B i Lillestrøm.',
+      'Bestill time hos kiropraktor Olve Lyngset ved Limbra Storgata i Lillestrøm, eller spør om intensivt rehabiliteringsopphold. Adresse, åpningstider og veibeskrivelse.',
     template: 'contact',
-    nav: ['main'],
+    nav: ['main', 'footer'],
     navLabel: 'Kontakt',
-    keywords: [],
-    priority: 0.7,
+    priority: 0.8,
     changeFrequency: 'yearly',
-    legacy: true,
   },
   {
     slug: 'personvern',
-    title: 'Personvernerklæring',
-    h1: 'Personvernerklæring',
+    title: 'Personvern',
+    h1: 'Personvern',
     eyebrow: 'Personvern',
     description:
-      'Hvilke opplysninger krystallsyken.no behandler, hvorfor, og hvilke rettigheter du har.',
+      'Hvilke opplysninger olvelyngset.no behandler, hvorfor, og hvilke rettigheter du har.',
     template: 'privacy',
     nav: ['footer'],
     navLabel: 'Personvern',
-    keywords: [],
     priority: 0.3,
     changeFrequency: 'yearly',
-    legacy: true,
+  },
+  {
+    // the second home direction, for Trym's choice; deleted once he has picked
+    slug: 'retning-b',
+    title: `[Forhåndsvisning B] ${HOME_TITLE}`,
+    h1: HOME_H1,
+    eyebrow: HOME_EYEBROW,
+    description: HOME_DESCRIPTION,
+    template: 'home-b',
+    nav: [],
+    navLabel: 'Retning B',
+    hidden: true,
+    priority: 0,
+    changeFrequency: 'yearly',
   },
 ]
 
-/** Legacy URLs with their permanent redirect targets (next.config.js reads this). */
-export const REDIRECTS: { source: string; destination: string }[] = [
-  { source: '/hjem', destination: '/' },
-  { source: '/sitemap.axd', destination: '/sitemap.xml' },
-  // cleaner slugs (2026-11-11): first person, ASCII, the keyword kept
-  { source: '/om-oss', destination: '/om-meg' },
-  { source: '/kontakt-oss', destination: '/kontakt' },
-  { source: '/sporsmal', destination: '/sporsmal-og-svar' },
-  { source: '/årsaker', destination: '/arsaker' },
-  { source: '/%C3%A5rsaker', destination: '/arsaker' },
-  { source: '/øvelser', destination: '/ovelser' },
-  { source: '/%C3%B8velser', destination: '/ovelser' },
-]
+/**
+ * Permanent redirects (next.config.js mirrors this list; it cannot import
+ * TypeScript). Empty: the site is new. The krystallsyken.no redirect map is
+ * out of scope (design spec).
+ */
+export const REDIRECTS: { source: string; destination: string }[] = []
 
 export function pathOf(route: Pick<Route, 'slug'>): string {
   return route.slug === '' ? '/' : `/${route.slug}`
 }
 
-/** Percent-encoded path for sitemap and llms.txt output. */
+/** Percent-encoded path for sitemap and llms.txt output, segment by segment. */
 export function encodePath(route: Pick<Route, 'slug'>): string {
-  return route.slug === '' ? '/' : `/${encodeURIComponent(route.slug)}`
+  return route.slug === '' ? '/' : `/${route.slug.split('/').map(encodeURIComponent).join('/')}`
 }
 
+/** The route for a joined path («svimmelhet/krystallsyke»), raw or percent-encoded. */
 export function routeBySlug(slug: string): Route | undefined {
   let decoded = slug
   try {
@@ -449,19 +246,37 @@ export function routeBySlug(slug: string): Route | undefined {
   return ROUTES.find((r) => r.slug === decoded)
 }
 
-export const HOME = ROUTES[0]
-export const CONTENT_ROUTES = ROUTES.filter((r) => r.slug !== '')
-export const NAV_MAIN = ROUTES.filter((r) => r.nav.includes('main') && r.slug !== '')
-export const NAV_FAG = ROUTES.filter((r) => r.nav.includes('fag'))
-export const NAV_FOOTER = ROUTES.filter((r) => r.nav.includes('footer'))
-export const AD_LANDING_ROUTES = ROUTES.filter((r) => r.adGroup)
+/**
+ * Breadcrumb trail: home, every registered parent path, the page itself.
+ * /svimmelhet/krystallsyke gives Hjem / Svimmelhet / Krystallsyke.
+ */
+export function crumbsOf(route: Route): { name: string; path: string }[] {
+  const parts = route.slug.split('/')
+  const parents = parts
+    .slice(0, -1)
+    .map((_, i) => routeBySlug(parts.slice(0, i + 1).join('/')))
+    .filter((r) => r !== undefined)
+  return [HOME, ...parents, route].map((r) => ({ name: r.navLabel, path: pathOf(r) }))
+}
 
-/** Slug set for the edge middleware and QA scripts (raw, not encoded). */
+export const HOME = ROUTES[0]
+export const HOME_B = ROUTES.find((r) => r.template === 'home-b') as Route
+/** Everything a search engine, a menu or llms.txt may see. */
+export const PUBLIC_ROUTES = ROUTES.filter((r) => !r.hidden)
+/** Pages rendered by the catch-all route (src/app/[...slug]). */
+export const CONTENT_ROUTES = PUBLIC_ROUTES.filter((r) => r.slug !== '')
+export const NAV_MAIN = PUBLIC_ROUTES.filter((r) => r.nav.includes('main') && r.slug !== '')
+export const NAV_FOOTER = PUBLIC_ROUTES.filter((r) => r.nav.includes('footer'))
+
+/** Slug set for the edge middleware tally (raw, not encoded; nested paths joined with «/»). */
 export const KNOWN_SLUGS: ReadonlySet<string> = new Set(
   ROUTES.map((r) => (r.slug === '' ? 'forside' : r.slug)),
 )
 
-export const BOOKING_ROUTE = ROUTES.find((r) => r.template === 'booking') as Route
+/** Paths that must carry noindex even on the production host. */
+export const HIDDEN_PATHS: ReadonlySet<string> = new Set(ROUTES.filter((r) => r.hidden).map(pathOf))
+
 export const CONTACT_ROUTE = ROUTES.find((r) => r.template === 'contact') as Route
-export const SAFETY_ROUTE = ROUTES.find((r) => r.slug === 'er-det-farlig') as Route
 export const PRACTITIONER_ROUTE = ROUTES.find((r) => r.template === 'practitioner') as Route
+/** The 113 advice in full: the box on the dizziness page (id «akutt»). */
+export const SAFETY_HREF = '/svimmelhet#akutt'

@@ -45,7 +45,7 @@ export default function KommentarPanel({
           Kommentar
         </h2>
         {plassering.tekst ? (
-          <blockquote className="max-h-40 overflow-auto border-l-4 border-krystall-500 bg-mist px-4 py-3 text-[0.9375rem] leading-relaxed">
+          <blockquote className="max-h-40 overflow-auto border-l-4 border-fjord-500 bg-mist px-4 py-3 text-[0.9375rem] leading-relaxed">
             {plassering.tekst}
           </blockquote>
         ) : (
