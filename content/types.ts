@@ -125,9 +125,38 @@ export type PrivacyContent = {
 }
 
 /**
+ * One of the two equal main entrances on the home page (arbeidsdokument §1:
+ * svimmelhet and hjernerystelse are «to likeverdige hovedinnganger»). The text
+ * is §4 in full: `lede` is the first paragraph (what the reader recognises),
+ * `body` the rest. `quote` is one sentence of that text lifted out and set
+ * large (direction A sets it as a typographic plate, B as a pull line).
+ */
+export type HomeDoor = {
+  id: string
+  heading: string
+  lede: Sourced
+  quote?: Sourced
+  body: Sourced[]
+  link: { href: string; label: string }
+}
+
+/** A titled block of the home page with an optional link («Les mer»). */
+export type HomeBlock = {
+  id: string
+  heading: string
+  /** a second line under the heading (the part after the dash in the document) */
+  subheading?: string
+  body: Sourced[]
+  link?: { href: string; label: string }
+}
+
+/**
  * The home page, shared by direction A (/) and direction B (/retning-b). The
- * H1 and eyebrow live in the route registry. Task 3 extends this with the
- * doorways and the lower sections (arbeidsdokument §4).
+ * H1 and eyebrow live in the route registry. Every text block is
+ * arbeidsdokument §4 in full; the practical block and the FAQ only say what
+ * the page itself answers. Photo choice is a design decision of each
+ * template; the captions live here so the copy rules (no dashes, banned
+ * words) cover them.
  */
 export type HomeContent = {
   kind: 'home'
@@ -137,8 +166,28 @@ export type HomeContent = {
     /** the button beside «Bestill time» */
     secondary: { label: string; href: string }
   }
+  /** Olve's own core sentence (arbeidsdokument §2), the centrepiece of direction B */
+  motto: Sourced
+  /** svimmelhet og balanse, then plager etter hjernerystelse */
+  doors: [HomeDoor, HomeDoor]
+  /** «Også vanlig kiropraktikk» */
+  general: HomeBlock
+  /** «En grundig undersøkelse», flere vinduer inn i nervesystemet */
+  examination: HomeBlock
+  /** «Gråsonen mellom syk og frisk», the one dark band */
+  greyZone: HomeBlock
+  /** «Om meg»: `body` is his story, `promise` the closing paragraph in his voice */
+  about: HomeBlock & { promise: Sourced }
   /** «Klar for å ta kontakt?» */
-  closing: Closing
+  closing: Closing & {
+    /** the second button: the intensive stay is not booked online (§7) */
+    secondary: { label: string; href: string }
+  }
+  /** heading and short practical lines over the location card */
+  practical: { heading: string; lede: string; items: Sourced[] }
+  faqs: Faq[]
+  /** captions for the clinic's own photos, by photo name */
+  captions: Partial<Record<PhotoName, string>>
 }
 
 export type PageContent =
