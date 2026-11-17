@@ -1,0 +1,29 @@
+# avhengigheter og bygg
+/node_modules
+/.next/
+/out/
+/build
+*.tsbuildinfo
+next-env.d.ts
+
+# miljø (aldri ekte verdier i git)
+.env*
+!.env.example
+!.env.production
+.dev.vars*
+.cloudflare.env
+
+# cloudflare / opennext
+.open-next/
+.wrangler/
+
+# lokale filer
+CLAUDE.local.md
+.claude/settings.local.json
+privat/
+.DS_Store
+npm-debug.log*
+
+# originalbilder fra Olve (store filer med GPS i EXIF); eksporter til public/bilder/ uten metadata
+bilder olve/
+.playwright-mcp/

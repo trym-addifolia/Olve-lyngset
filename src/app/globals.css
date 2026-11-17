@@ -1,0 +1,207 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /*
+     * Linen and petrol: a pale linen ground, petrol ink, petrol as the only
+     * primary (the practitioner's own colour). Orange (krystall) is reserved
+     * for the crystals in the drawings and their small marks, red for the
+     * 113 box. Mirrors the hex scales in site.config.ts theme; no hex
+     * literals elsewhere in src/ except src/lib/og.tsx.
+     */
+    --background: 43 26% 95%;        /* warm linen #F5F3EE */
+    --foreground: 194 47% 12%;       /* ink #10262D */
+    --card: 0 0% 100%;
+    --card-foreground: 194 47% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 194 47% 12%;
+    --primary: 191 68% 22%;          /* petrol #12515F */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 173 17% 90%;        /* haze #E3EBEA */
+    --secondary-foreground: 194 47% 12%;
+    --muted: 173 17% 90%;
+    --muted-foreground: 195 16% 31%; /* #425459 */
+    --accent: 191 68% 22%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 2 62% 40%;        /* 113 signal red, contrast-safe */
+    --destructive-foreground: 0 0% 100%;
+    --border: 167 12% 83%;
+    --input: 167 12% 72%;
+    --ring: 191 60% 30%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display), Georgia, serif;
+    font-weight: 500;
+  }
+  h1, h2, h3 { text-wrap: balance; overflow-wrap: break-word; hyphens: manual; }
+  /* long compound words may break on a phone, never in a desktop headline */
+  @media (max-width: 480px) {
+    h1, h2, h3 { hyphens: auto; }
+  }
+  p { text-wrap: pretty; }
+
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 3px;
+  }
+
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    html { scroll-behavior: auto !important; }
+  }
+
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground; }
+}
+
+@layer components {
+  /* Kicker above a heading: the page's category, in sentence case, one colour. */
+  .eyebrow {
+    @apply block font-sans text-[0.9375rem] font-medium leading-6 text-fjord-700;
+  }
+  .eyebrow-plain { }
+  /* the crystal as a signature: a small orange rhombus before section kickers */
+  .eyebrow-mark::before {
+    content: "";
+    @apply mr-2.5 inline-block h-1.5 w-1.5 -translate-y-[0.15em] rotate-45 bg-krystall-500;
+  }
+
+  /* Long-form article body (info pages) */
+  .prose-site {
+    @apply text-[1.125rem] leading-[1.7] text-foreground/90;
+  }
+  .prose-site p + p { @apply mt-5; }
+  .prose-site ul { @apply mt-5 list-none space-y-2.5 pl-0; }
+  .prose-site ul > li { @apply relative pl-5; }
+  .prose-site ul > li::before {
+    content: "";
+    @apply absolute left-0 top-[0.62em] h-[7px] w-[7px] rotate-45 bg-krystall-500;
+  }
+  .prose-site a { @apply text-fjord-700 underline decoration-fjord-300 decoration-[1.5px] underline-offset-[5px] hover:decoration-fjord-700; }
+
+  /* raised markers for unconfirmed facts stay quiet inside article text */
+  .prose-site sup a { @apply no-underline; }
+
+  /* Olve's own sentences: the serif in roman, marked by a rule and his name,
+     so no second font file is needed for one quote */
+  .voice {
+    @apply font-serif font-normal not-italic text-foreground;
+  }
+
+  /* Visible marker for unconfirmed facts and text slots still to be written (amber means "not yet confirmed") */
+  .placeholder {
+    @apply my-0.5 inline-block rounded border border-dashed border-ember-500 bg-ember-50 px-1.5 py-0.5 font-sans text-[0.85em] not-italic leading-snug text-ember-900;
+  }
+}
+
+/*
+ * The logo crystal turns once when the page opens. Pure CSS on the icon, no
+ * overlay, nothing waits for it. The header persists across client-side
+ * navigation, so it runs once per full page load. None with reduced motion.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .logo-krystall {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: krystall-snurr 800ms cubic-bezier(0.16, 1, 0.3, 1) 150ms 1 both;
+  }
+}
+@keyframes krystall-snurr {
+  from { transform: rotate(-360deg) scale(0.85); }
+  to { transform: rotate(0deg) scale(1); }
+}
+
+/*
+ * Explaining motion (content/illustrations.tsx, positions.tsx, EpleyRail).
+ * Only crystals move, and a line may draw itself. Nothing runs unless the
+ * head script has set html[data-anim] (JavaScript on) and the reader allows
+ * motion; otherwise the drawing simply stands finished. Each figure waits
+ * at its first frame (a complete, readable drawing) until AnimObserver
+ * marks it seen, then plays once.
+ */
+@media screen and (prefers-reduced-motion: no-preference) {
+  html[data-anim] .anim-rot .anim {
+    animation-name: var(--kf);
+    animation-duration: var(--dur, 1600ms);
+    animation-timing-function: linear;
+    animation-delay: var(--delay, 0ms);
+    animation-fill-mode: both;
+    animation-iteration-count: 1;
+    animation-play-state: paused;
+  }
+  html[data-anim] .anim-rot[data-sett] .anim { animation-play-state: running; }
+}
+/* the other canals step back in colour; without motion they are simply stepped back */
+.kanal-demp { color: color-mix(in srgb, theme(colors.ink.900) 30%, theme(colors.paper)); }
+@keyframes kanal-demp {
+  from { color: theme(colors.ink.900); }
+  to { color: color-mix(in srgb, theme(colors.ink.900) 30%, theme(colors.paper)); }
+}
+/* the eye-movement trace uncovers itself from left to right: it is a time axis */
+.spor-avdekk { transform-box: fill-box; transform-origin: left center; }
+@keyframes spor-avdekk {
+  from { transform: scaleX(0.3); }
+  to { transform: scaleX(1); }
+}
+
+/* The Epley rail (ProcessTimeline `rail`). At rest: no clusters on the line. */
+.skinne-klynge { display: none; }
+@media screen and (prefers-reduced-motion: no-preference) {
+  /* a step ahead: nothing on its line, and no motion on the way there (scrolling back up) */
+  html[data-anim] [data-skinne-aktiv] .skinne-klynge {
+    display: block;
+    opacity: 0;
+    transform: translateY(0);
+    transition: none;
+  }
+  /* the current step: the cluster at the top of its line, after the previous one has arrived */
+  html[data-anim] [data-skinne-aktiv] li[data-steg='aktiv'] .skinne-klynge {
+    opacity: 1;
+    transition: opacity 0s linear 800ms;
+  }
+  /* a step passed: the cluster slides down its line, then hands over to the next step */
+  html[data-anim] [data-skinne-aktiv] li[data-steg='forbi'] .skinne-klynge {
+    opacity: 0;
+    transform: translateY(100%);
+    transition: transform 800ms cubic-bezier(0.45, 0, 0.25, 1), opacity 0s linear 800ms;
+  }
+  /* the pocket: full until the reader reaches step 1, empty on the way, full again at the end */
+  html[data-anim] [data-skinne-aktiv]:not([data-ferdig]) + div .lomme-krystaller { opacity: 0; }
+  html[data-anim] [data-skinne-aktiv][data-ferdig] + div .lomme-krystaller {
+    transition: opacity 0s linear 800ms;
+  }
+}
+
+/*
+ * Position drawings (content/positions.tsx): a 2 px line in the text colour
+ * with round caps. The stroke does not scale with the drawing. Closed shapes
+ * take the plate colour so limbs overlap cleanly. Orange is the crystal only.
+ */
+.tegning {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.tegning :is(path, circle, rect) { vector-effect: non-scaling-stroke; }
+.tegning .flate { fill: var(--plate, #fff); }
+.tegning .svak { opacity: 0.3; }
+.tegning .tykk { stroke-width: 5; }
+.tegning .prikk { fill: currentColor; stroke: none; }
+.tegning .krystall { fill: theme(colors.krystall.500); stroke: none; }
+
+/* comment mode (preview only): the block Olve is about to mark */
+.kommentar-hover {
+  outline: 2px dashed theme('colors.fjord.600');
+  outline-offset: 4px;
+  border-radius: 2px;
+  cursor: pointer;
+}

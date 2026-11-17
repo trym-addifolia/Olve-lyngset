@@ -1,0 +1,35 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Addifolia account (CLOUDFLARE_ACCOUNT_ID in the local .env); never the Plastiks login
+  "name": "krystallsyken",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-10-28",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "services": [
+    {
+      // OpenNext calls back into its own Worker (cache revalidation)
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "krystallsyken"
+    }
+  ],
+  "d1_databases": [
+    {
+      // anonymous tallies: site_hits and booking_clicks (migrations/)
+      "binding": "DB",
+      "database_name": "krystallsyken-maling",
+      "database_id": "bd0b1909-c49a-4ce2-b97a-53aca995684f",
+      "migrations_dir": "migrations"
+    }
+  ],
+  // preview host until launch: krystallsyken.hei-0de.workers.dev
+  "workers_dev": true,
+  "preview_urls": false,
+  "observability": { "enabled": true },
+  // Olve's comments become issues here (src/lib/kommentar/github.ts). Secrets:
+  // KOMMENTAR_NOKKEL and GITHUB_KOMMENTAR_TOKEN (wrangler secret put).
+  "vars": { "GITHUB_KOMMENTAR_REPO": "mrwebflower/krystallsyken" }
+}
