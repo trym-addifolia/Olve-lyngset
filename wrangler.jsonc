@@ -21,11 +21,8 @@
       // anonymous tallies: site_hits and booking_clicks (migrations/)
       "binding": "DB",
       "database_name": "olvelyngset-maling",
-      // PLACEHOLDER until the deploy step runs `npm run cf -- wrangler d1 create
-      // olvelyngset-maling` and pastes the real id here. Build, typecheck and
-      // `npm run dev` (local D1) do not read it; `npm run db:migrate` and
-      // `npm run deploy` fail until it is set.
-      "database_id": "TODO-create",
+      // created 2026-11-17 on the Addifolia account (WEUR), 0001 migrated
+      "database_id": "8ebc1667-b321-42f6-a68e-a0e06deea992",
       "migrations_dir": "migrations"
     }
   ],
