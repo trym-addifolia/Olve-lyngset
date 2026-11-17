@@ -186,6 +186,19 @@ export const site = {
     ],
   },
 
+  /**
+   * Sister sites, linked from the matching page. krystallsyken.no stays the
+   * deep site on krystallsyke (design decision 1); /svimmelhet/krystallsyke
+   * links out to it.
+   */
+  sister: {
+    krystallsyken: {
+      // the preview Worker until launch; becomes https://www.krystallsyken.no when that site goes live
+      url: 'https://krystallsyken.hei-0de.workers.dev',
+      label: 'krystallsyken.no',
+    },
+  },
+
   /** Limbra Storgata, the work location in the Person schema (src/lib/schema.ts) */
   location: {
     city: 'Lillestrøm',

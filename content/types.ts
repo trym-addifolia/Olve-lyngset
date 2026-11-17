@@ -32,6 +32,12 @@ export type Section = {
   photo?: PhotoRef
   /** optional link rendered after the body */
   link?: { href: string; label: string }
+  /**
+   * A short list of named items, each with one line and an optional link
+   * («Tilstander jeg ofte møter» on /svimmelhet). Items without `href` are
+   * plain text: their pages do not exist yet.
+   */
+  entries?: { term: string; body: Sourced; href?: string }[]
 }
 
 export type Step = {
@@ -52,21 +58,32 @@ export type BaseContent = {
   closing: Closing
 }
 
-export type InfoContent = BaseContent & {
-  kind: 'info'
+/**
+ * Which 113 box a page carries: the dizziness/stroke signs (default) or the
+ * acute head injury signs (legevakt and 113), for /hjernerystelse.
+ */
+export type SafetyTopic = 'svimmelhet' | 'hjernerystelse'
+
+/** The outbound card to a sister site (site.sister), e.g. krystallsyken.no. */
+export type SisterLink = { site: 'krystallsyken'; heading: string; body: Sourced }
+
+type ArticleContent = BaseContent & {
   /** the 113 box (id «akutt»); required on svimmelhet, hjernerystelse and krystallsyke */
   safety: boolean
+  /** which signs the 113 box lists; default 'svimmelhet' */
+  safetyTopic?: SafetyTopic
   /** a photo beside the hero text (desktop) */
   heroPhoto?: PhotoName
   sections: Section[]
+  /** the equipment list from site.practitioner.equipment, after the sections */
+  showEquipment?: boolean
+  /** an outbound card to a sister site, after the sections */
+  sister?: SisterLink
 }
 
-export type HubContent = BaseContent & {
-  kind: 'hub'
-  safety: boolean
-  heroPhoto?: PhotoName
-  sections: Section[]
-}
+export type InfoContent = ArticleContent & { kind: 'info' }
+
+export type HubContent = ArticleContent & { kind: 'hub' }
 
 export type LandingContent = BaseContent & {
   kind: 'landing'
