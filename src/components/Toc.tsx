@@ -5,8 +5,8 @@ export default function Toc({ items }: { items: { id: string; label: string }[] 
   if (items.length < 2) return null
   return (
     <nav aria-label="Innhold på siden" className="border-l-2 border-fjord-200 pl-5">
-      <p className="text-sm font-semibold text-foreground">På denne siden</p>
-      <ol className="mt-3 space-y-2 text-[0.9375rem]">
+      <p className="text-base font-semibold text-foreground">På denne siden</p>
+      <ol className="mt-3 space-y-2.5 text-base">
         {items.map((item) => (
           <li key={item.id}>
             <a

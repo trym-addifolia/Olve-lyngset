@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils'
 import { PHOTOS, type PhotoName } from '@/photos'
 
 /**
- * One of the clinic's own photos, mounted like the portrait: a white mat,
+ * One of the clinic's own photos, hung bare like the prints on the home page,
  * the whole photo in its own ratio (never cropped by CSS), a short caption.
  * Never shown wider than its display size. `priority` for a photo in the first
  * screen (page heroes), so it is not lazy-loaded.
@@ -23,9 +23,9 @@ export default function Photo({
   return (
     <figure
       className={cn('w-full', className)}
-      style={{ maxWidth: `min(100%, ${p.width + 24}px)` }}
+      style={{ maxWidth: `min(100%, ${p.width}px)` }}
     >
-      <div className="border border-border bg-card p-3">
+      <div>
         <div
           className="relative overflow-hidden bg-mist"
           style={{ aspectRatio: `${p.width} / ${p.height}` }}

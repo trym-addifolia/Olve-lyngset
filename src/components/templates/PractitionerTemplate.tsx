@@ -24,28 +24,28 @@ export default function PractitionerTemplate({
   const p = site.practitioner
   return (
     <>
-      <section className="border-b border-border bg-card">
+      <section className="bg-background">
         <div className="mx-auto max-w-7xl px-4 pb-14 pt-6 sm:px-6 md:pb-20 md:pt-8 lg:px-8">
           <Breadcrumbs items={crumbsOf(route)} />
           <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
             <PortraitSlot priority className="mx-auto lg:mx-0" />
             <div>
-              <SectionHeading as="h1" eyebrow={route.eyebrow} title={route.h1} />
-              <p className="mt-6 max-w-prose text-lg leading-relaxed text-foreground/85 md:text-xl md:leading-relaxed">
+              <SectionHeading as="h1" title={route.h1} />
+              <p className="mt-6 max-w-prose text-lg leading-relaxed text-foreground md:text-xl md:leading-relaxed">
                 <RichText text={content.intro.text} />
               </p>
               <dl className="mt-8 grid gap-x-10 gap-y-4 border-t border-border pt-5 sm:grid-cols-2">
                 {content.facts.map((f) => (
                   <div key={f.label}>
-                    <dt className="text-sm text-muted-foreground">{f.label}</dt>
-                    <dd className="mt-1 text-[0.9375rem] font-medium leading-snug">
+                    <dt className="text-[0.9375rem] text-muted-foreground">{f.label}</dt>
+                    <dd className="mt-1 text-base font-medium leading-snug">
                       <RichText text={f.value.text} />
                     </dd>
                   </div>
                 ))}
               </dl>
               <div className="mt-8">
-                <Button asChild size="lg">
+                <Button asChild size="lg" className="h-14 px-7 text-lg">
                   <a href={bookingHref(`hero:${route.slug}`)} data-hero-cta="">
                     Bestill time
                   </a>
@@ -67,7 +67,7 @@ export default function PractitionerTemplate({
                 <VideoEmbed youtubeId={p.video.youtubeId} title={p.video.title} />
               )}
               <div>
-                <p className="eyebrow mb-3">Utstyr og tester</p>
+                <h2 className="mb-5 text-display-sm">Utstyr og tester</h2>
                 <EquipmentList columns={1} />
               </div>
             </div>
@@ -76,11 +76,10 @@ export default function PractitionerTemplate({
       </section>
 
       {content.faqs.length > 0 && (
-        <section className="border-t border-border py-16 md:py-24">
+        <section className="py-16 md:py-24">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="grid gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
+            <div className="grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
               <SectionHeading
-                eyebrow="Spørsmål og svar"
                 title={`Vanlige spørsmål om ${p.firstName}`}
               />
               <FaqAccordion faqs={content.faqs} path={path} />

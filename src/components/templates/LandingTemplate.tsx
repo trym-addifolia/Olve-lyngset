@@ -38,14 +38,12 @@ export default function LandingTemplate({
     <>
       <PageHero
         crumbs={crumbsOf(route)}
-        eyebrow={route.eyebrow}
         h1={route.h1}
         intro={content.intro.text}
         source={route.slug}
         cta={route.heroCta}
-        tone="mist"
       >
-        <div className="rounded-lg border border-border bg-card p-6 md:p-7">
+        <div className="bg-card p-6 sm:p-8">
           {byEmail ? (
             <>
               <h2 className="text-display-sm">Kontakt meg direkte</h2>
@@ -100,7 +98,7 @@ export default function LandingTemplate({
       </section>
 
       {content.showEquipment && (
-        <section className="border-t border-border py-16 md:py-24">
+        <section className="py-16 md:py-24">
           <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16 lg:px-8">
             <Photo name="videobriller" className="mx-auto lg:mx-0" />
             <div>
@@ -114,7 +112,7 @@ export default function LandingTemplate({
       )}
 
       {content.sections.length > 0 && (
-        <section className="border-t border-border bg-card py-16 md:py-24">
+        <section className="bg-card py-16 md:py-24">
           <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:gap-20 lg:px-8">
             {content.sections.map((s) => (
               <div key={s.id} className="max-w-prose">
@@ -126,11 +124,11 @@ export default function LandingTemplate({
       )}
 
       {content.faqs.length > 0 && (
-        <section className="border-t border-border py-16 md:py-24">
+        <section className="py-16 md:py-24">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <section
               id="faq"
-              className="grid scroll-mt-28 gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16"
+              className="grid scroll-mt-28 gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16"
             >
               <SectionHeading title={`Vanlige spørsmål om ${topicOf(route)}`} />
               <FaqAccordion faqs={content.faqs} path={path} />

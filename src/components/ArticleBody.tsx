@@ -6,13 +6,13 @@ import RichText from '@/components/RichText'
 /** Long-form sections: kicker + H2 (anchor) + lede + optional photo + paragraphs + bullets. */
 export function ArticleSection({ section }: { section: Section }) {
   return (
-    <section id={section.id} className="scroll-mt-28">
+    <section id={section.id} className="reveal scroll-mt-28">
       {section.eyebrow && <p className="eyebrow eyebrow-mark mb-2">{section.eyebrow}</p>}
       <h2 className="text-display-sm md:text-display-md">
         <RichText text={section.heading} />
       </h2>
       {section.lede && (
-        <p className="mt-3 text-lg leading-relaxed text-muted-foreground">
+        <p className="mt-3 text-lg leading-relaxed text-foreground/85">
           <RichText text={section.lede} />
         </p>
       )}
