@@ -8,7 +8,9 @@
  * (docs/superpowers/plans/2026-11-17-olvelyngset.md, «Route registry»). H1s,
  * titles and descriptions come from Olve's working document
  * (docs/olve/olvelyngset_nettside_arbeidsdokument.md, cited «§N»), dashes
- * rewritten. Slugs are ASCII and may be nested («svimmelhet/krystallsyke»);
+ * rewritten. Three titles and descriptions depart from the document after the
+ * search-term review of 2026-11-18 (svimmelhet, krystallsyke, hjernerystelse;
+ * marked below) and wait for Olve's approval with the rest of the text. Slugs are ASCII and may be nested («svimmelhet/krystallsyke»);
  * the catch-all route joins the segments with «/».
  */
 
@@ -75,11 +77,13 @@ export const ROUTES: readonly Route[] = [
   },
   {
     slug: 'svimmelhet',
-    title: 'Svimmelhet og balanseproblemer | Olve Lyngset, Lillestrøm',
+    // §5 has «Svimmelhet og balanseproblemer | Olve Lyngset, Lillestrøm». People search
+    // «svimmelhet behandling», «svimmelhet lillestrøm»; the page covers both examination and exercises.
+    title: 'Svimmelhet: undersøkelse og behandling i Lillestrøm | Olve Lyngset',
     h1: 'Svimmelhet og balanseproblemer',
     eyebrow: 'Svimmelhet og balanse',
     description:
-      'Langvarig svimmelhet, ustøhet eller balanseproblemer? Les hvordan Olve Lyngset undersøker øyebevegelser, balanse og vestibulær funksjon i Lillestrøm.',
+      'Langvarig svimmelhet, ustøhet eller balanseproblemer? Slik undersøker og behandler kiropraktor Olve Lyngset svimmelhet og balanse i Lillestrøm.',
     template: 'hub',
     nav: ['main'],
     navLabel: 'Svimmelhet',
@@ -87,13 +91,15 @@ export const ROUTES: readonly Route[] = [
     changeFrequency: 'monthly',
   },
   {
-    // §12 gives only the angle; title and description written for this site
+    // §12 gives only the angle; title and description written for this site.
+    // The title asks the reader's question and leaves «krystallsyke behandling
+    // Lillestrøm» to krystallsyken.no, so the two sites do not compete.
     slug: 'svimmelhet/krystallsyke',
-    title: 'Krystallsyke (BPPV) i Lillestrøm | Olve Lyngset',
+    title: 'Er svimmelheten krystallsyke (BPPV)? | Olve Lyngset',
     h1: 'Krystallsyke (BPPV): undersøkelse og behandling',
     eyebrow: 'Svimmelhet · Krystallsyke',
     description:
-      'Krystallsyke (BPPV) gir korte anfall av svimmelhet når du snur hodet. Slik undersøker og behandler Olve Lyngset det i Lillestrøm, og hvor du kan lese mer.',
+      'Krystallsyke (BPPV) gir korte anfall av svimmelhet når du snur hodet. Kort om undersøkelse og behandling hos Olve Lyngset, og hvor du kan lese mer.',
     template: 'info',
     nav: [],
     navLabel: 'Krystallsyke',
@@ -102,11 +108,14 @@ export const ROUTES: readonly Route[] = [
   },
   {
     slug: 'hjernerystelse',
-    title: 'Langvarige plager etter hjernerystelse | Olve Lyngset',
+    // §6 has «Langvarige plager etter hjernerystelse | Olve Lyngset». «Hjernerystelse»
+    // first and «rehabilitering» added: the page describes it, and it is searched. Not
+    // «behandling»: the text in §6 speaks of oppfølging and rehabilitering only.
+    title: 'Hjernerystelse: langvarige plager og rehabilitering | Olve Lyngset',
     h1: 'Når plagene etter hjernerystelsen ikke går over',
     eyebrow: 'Plager etter hjernerystelse',
     description:
-      'Vedvarende svimmelhet, hodepine eller utmattelse etter hjernerystelse? Olve Lyngset i Lillestrøm tilbyr grundig funksjonsundersøkelse og tilpasset oppfølging.',
+      'Vedvarende svimmelhet, hodepine eller utmattelse etter hjernerystelse? Grundig funksjonsundersøkelse og tilpasset rehabilitering hos Olve Lyngset i Lillestrøm.',
     template: 'info',
     heroCta: {
       booking: true,

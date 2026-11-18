@@ -1,6 +1,6 @@
 /*
- * Structured-data builders: Person + WebSite on every page, BreadcrumbList on
- * every inner page, FAQPage where a page shows FAQs. One place for every
+ * Structured-data builders: Person + WebSite + WebPage on every page,
+ * BreadcrumbList on every inner page, FAQPage where a page shows FAQs. One place for every
  * schema.org object so the @ids stay consistent and never drift from
  * site.config.ts.
  *
@@ -15,7 +15,7 @@
  * - no AggregateRating, no reviews
  * - unconfirmed facts ({{OLVE_BEKREFT}}) never reach the graph
  */
-import { PRACTITIONER_ROUTE, pathOf } from '@/routes'
+import { PRACTITIONER_ROUTE, type Route, pathOf } from '@/routes'
 import { site } from '@/site.config'
 import { BASE_URL, absUrl } from './siteUrl'
 
@@ -28,8 +28,21 @@ function clean(text: string): string | undefined {
   return t.length ? t : undefined
 }
 
+/**
+ * Other pages about the same person: the addresses Olve has given
+ * (practitioner.profiles) and krystallsyken.no once it is live. The preview
+ * Worker of the sister site is never claimed as his.
+ */
+function sameAs(): string[] {
+  const sister = site.sister.krystallsyken.url
+  const live = !new URL(sister).host.endsWith('.workers.dev')
+  return [...site.practitioner.profiles, ...(live ? [sister] : [])]
+}
+
 export function personSchema() {
   const p = site.practitioner
+  const { latitude, longitude } = site.location.geo
+  const links = sameAs()
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',
@@ -48,8 +61,22 @@ export function personSchema() {
         postalCode: site.contact.address.postalCode,
         addressCountry: 'NO',
       },
-      // no geo: site.location.geo is approximate until checked against Kartverket
+      geo: { '@type': 'GeoCoordinates', latitude, longitude },
     },
+    // where he practises. Person has no areaServed, and the site claims no
+    // wider area until Olve has worded it (travel from Oslo and Romerike)
+    hasOccupation: {
+      '@type': 'Occupation',
+      name: p.title,
+      occupationLocation: {
+        '@type': 'City',
+        name: site.location.city,
+        containedInPlace: { '@type': 'Country', name: 'Norge' },
+      },
+    },
+    knowsAbout: p.topics,
+    knowsLanguage: 'nb',
+    ...(links.length ? { sameAs: links } : {}),
     hasCredential: {
       '@type': 'EducationalOccupationalCredential',
       credentialCategory: 'Autorisasjon (HPR)',
@@ -70,6 +97,30 @@ export function websiteSchema() {
     // a personal site: the person is the publisher, not a clinic
     publisher: { '@id': PERSON_ID },
     about: { '@id': PERSON_ID },
+  }
+}
+
+/**
+ * The page itself: what it is, who wrote it and when its text last changed.
+ * The page about Olve is a ProfilePage with him as its main entity. Plain
+ * WebPage elsewhere, not MedicalWebPage: that type carries reviewedBy and
+ * lastReviewed, and no scheduled professional review exists yet.
+ */
+export function webPageSchema(route: Route, updated: string) {
+  const path = pathOf(route)
+  const isProfile = route.slug === PRACTITIONER_ROUTE.slug
+  return {
+    '@context': 'https://schema.org',
+    '@type': isProfile ? 'ProfilePage' : 'WebPage',
+    '@id': `${absUrl(path)}#webpage`,
+    url: absUrl(path),
+    name: route.title,
+    description: route.description,
+    inLanguage: 'nb-NO',
+    isPartOf: { '@id': WEBSITE_ID },
+    author: { '@id': PERSON_ID },
+    dateModified: updated,
+    ...(isProfile || route.slug === '' ? { mainEntity: { '@id': PERSON_ID } } : {}),
   }
 }
 

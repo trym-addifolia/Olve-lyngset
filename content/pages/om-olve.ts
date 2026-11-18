@@ -13,6 +13,7 @@ const p = site.practitioner
  */
 export const OM_OLVE_CONTENT: PractitionerContent = {
   kind: 'practitioner',
+  updated: '2026-11-17',
   intro: t(
     'Jeg hadde egentlig sett for meg en annen yrkesvei. Som ung spilte jeg ishockey, og etter en takling fikk jeg ryggplager. Moren min tok meg med til kiropraktor {{OLVE_BEKREFT: navn på tredjepart (Gunn Austlid) | Gunn Austlid}} i Lillestrøm. Hjelpen jeg fikk der, gjorde så sterkt inntrykk at jeg bestemte meg for å bli kiropraktor.',
     SRC.doc(10),

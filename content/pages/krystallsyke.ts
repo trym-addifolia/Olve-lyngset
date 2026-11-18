@@ -12,6 +12,7 @@ import type { InfoContent } from '../types'
  */
 export const KRYSTALLSYKE_CONTENT: InfoContent = {
   kind: 'info',
+  updated: '2026-11-17',
   safety: true,
   heroPhoto: 'videobriller',
   intro: t(

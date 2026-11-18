@@ -1,11 +1,13 @@
 import { contentFor } from '@content/index'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import JsonLd from '@/components/seo/JsonLd'
 import ContactTemplate from '@/components/templates/ContactTemplate'
 import InfoTemplate from '@/components/templates/InfoTemplate'
 import LandingTemplate from '@/components/templates/LandingTemplate'
 import PractitionerTemplate from '@/components/templates/PractitionerTemplate'
 import PrivacyTemplate from '@/components/templates/PrivacyTemplate'
+import { webPageSchema } from '@/lib/schema'
 import { CONTENT_ROUTES, type Route, pathOf, routeBySlug } from '@/routes'
 import { site } from '@/site.config'
 
@@ -51,7 +53,12 @@ export default async function RoutePage({ params }: Props) {
   const route = await routeOf(params)
   const content = route && !route.hidden ? contentFor(route.slug) : undefined
   if (!route || !content) notFound()
-  return renderTemplate(route, content)
+  return (
+    <>
+      {renderTemplate(route, content)}
+      <JsonLd data={webPageSchema(route, content.updated)} />
+    </>
+  )
 }
 
 function renderTemplate(route: Route, content: NonNullable<ReturnType<typeof contentFor>>) {

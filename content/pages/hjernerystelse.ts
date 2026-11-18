@@ -11,6 +11,7 @@ import type { InfoContent } from '../types'
  */
 export const HJERNERYSTELSE_CONTENT: InfoContent = {
   kind: 'info',
+  updated: '2026-11-17',
   safety: true,
   safetyTopic: 'hjernerystelse',
   intro: t(

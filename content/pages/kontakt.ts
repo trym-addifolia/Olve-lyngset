@@ -12,6 +12,7 @@ import type { ContactContent } from '../types'
  */
 export const KONTAKT_CONTENT: ContactContent = {
   kind: 'contact',
+  updated: '2026-11-17',
   intro: t(
     'Jeg tar imot pasienter ved Limbra Storgata i Lillestrøm. En vanlig konsultasjon bestiller du i timebestillingen hos Limbra. Har du spørsmål om et intensivt rehabiliteringsopphold, kontakter du meg direkte på e-post.',
     SRC.doc(11),

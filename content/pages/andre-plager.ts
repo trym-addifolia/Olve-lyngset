@@ -5,6 +5,7 @@ import type { InfoContent } from '../types'
 /** /andre-plager (arbeidsdokument §9): ordinary chiropractic, with the list of examples. */
 export const ANDRE_PLAGER_CONTENT: InfoContent = {
   kind: 'info',
+  updated: '2026-11-17',
   safety: false,
   heroPhoto: 'olve-nakken',
   intro: t(
