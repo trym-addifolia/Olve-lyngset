@@ -13,8 +13,7 @@ import { site } from '@/site.config'
  * One catch-all segment renders every inner page from the registry, nested
  * ones too (/svimmelhet/krystallsyke): the segments are joined with «/» and
  * looked up in the registry. Static params come from the registry; anything
- * else 404s. The home pages have their own routes (src/app/page.tsx and
- * src/app/retning-b/page.tsx). Segments may arrive raw or percent-encoded;
+ * else 404s. The home page has its own route (src/app/page.tsx). Segments may arrive raw or percent-encoded;
  * routeBySlug() decodes defensively.
  */
 export const dynamicParams = false

@@ -14,8 +14,6 @@
 
 export type Template =
   | 'home'
-  /** home direction B, served at /retning-b on the preview only */
-  | 'home-b'
   | 'info'
   | 'hub'
   | 'landing'
@@ -48,7 +46,7 @@ export type Route = {
   /** topic for «Vanlige spørsmål om ...» when the nav label is not good bokmål there */
   faqTopic?: string
   /**
-   * Preview-only page (home direction B): noindex, never in the sitemap,
+   * Preview-only page: noindex, never in the sitemap,
    * llms.txt or menus, and its title is marked «[Forhåndsvisning B]».
    */
   hidden?: boolean
@@ -203,20 +201,6 @@ export const ROUTES: readonly Route[] = [
     priority: 0.3,
     changeFrequency: 'yearly',
   },
-  {
-    // the second home direction, for Trym's choice; deleted once he has picked
-    slug: 'retning-b',
-    title: `[Forhåndsvisning B] ${HOME_TITLE}`,
-    h1: HOME_H1,
-    eyebrow: HOME_EYEBROW,
-    description: HOME_DESCRIPTION,
-    template: 'home-b',
-    nav: [],
-    navLabel: 'Retning B',
-    hidden: true,
-    priority: 0,
-    changeFrequency: 'yearly',
-  },
 ]
 
 export function pathOf(route: Pick<Route, 'slug'>): string {
@@ -253,7 +237,6 @@ export function crumbsOf(route: Route): { name: string; path: string }[] {
 }
 
 export const HOME = ROUTES[0]
-export const HOME_B = ROUTES.find((r) => r.template === 'home-b') as Route
 /** Everything a search engine, a menu or llms.txt may see. */
 export const PUBLIC_ROUTES = ROUTES.filter((r) => !r.hidden)
 /** Pages rendered by the catch-all route (src/app/[...slug]). */

@@ -27,3 +27,4 @@ npm-debug.log*
 # originalbilder fra Olve (store filer med GPS i EXIF); eksporter til public/bilder/ uten metadata
 bilder olve/
 .playwright-mcp/
+.taste-skill/

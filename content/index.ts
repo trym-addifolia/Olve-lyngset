@@ -13,12 +13,10 @@ import type { PageContent } from './types'
 /**
  * Content per route slug ('' = home; nested slugs joined with «/»), one file
  * per page in content/pages/. Every route in src/routes.ts must have an entry
- * whose kind fits its template (src/lib/routes.test.ts). Both home directions
- * share the home content.
+ * whose kind fits its template (src/lib/routes.test.ts).
  */
 export const CONTENT: Record<string, PageContent> = {
   '': HOME_CONTENT,
-  'retning-b': HOME_CONTENT,
   svimmelhet: SVIMMELHET_CONTENT,
   'svimmelhet/krystallsyke': KRYSTALLSYKE_CONTENT,
   hjernerystelse: HJERNERYSTELSE_CONTENT,
