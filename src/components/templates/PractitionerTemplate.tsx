@@ -1,6 +1,7 @@
 import type { PractitionerContent } from '@content/types'
 import ArticleBody from '@/components/ArticleBody'
 import Breadcrumbs from '@/components/Breadcrumbs'
+import Byline from '@/components/Byline'
 import CtaBand from '@/components/CtaBand'
 import EquipmentList from '@/components/EquipmentList'
 import FaqAccordion from '@/components/FaqAccordion'
@@ -87,6 +88,10 @@ export default function PractitionerTemplate({
           </div>
         </section>
       )}
+
+      <div className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+        <Byline updated={content.updated} author={false} />
+      </div>
 
       <RelatedLinks slugs={content.related} />
       <CtaBand

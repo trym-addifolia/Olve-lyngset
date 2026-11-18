@@ -1,5 +1,6 @@
 import type { LandingContent } from '@content/types'
 import { ArticleSection } from '@/components/ArticleBody'
+import Byline from '@/components/Byline'
 import CtaBand from '@/components/CtaBand'
 import EquipmentList from '@/components/EquipmentList'
 import FaqAccordion from '@/components/FaqAccordion'
@@ -136,6 +137,10 @@ export default function LandingTemplate({
           </div>
         </section>
       )}
+
+      <div className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+        <Byline updated={content.updated} />
+      </div>
 
       <RelatedLinks slugs={content.related} />
       <CtaBand

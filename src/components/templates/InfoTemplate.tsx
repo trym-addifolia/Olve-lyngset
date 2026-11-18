@@ -1,5 +1,6 @@
 import type { HubContent, InfoContent } from '@content/types'
 import ArticleBody from '@/components/ArticleBody'
+import Byline from '@/components/Byline'
 import CtaBand from '@/components/CtaBand'
 import EquipmentList from '@/components/EquipmentList'
 import FaqAccordion from '@/components/FaqAccordion'
@@ -45,7 +46,7 @@ export default function InfoTemplate({
     ...(content.safety ? [{ id: SAFETY_ID, label: safetyTitle ?? 'Når du skal ringe 113' }] : []),
     ...(hasFaq ? [{ id: 'faq', label: 'Vanlige spørsmål' }] : []),
   ]
-  // a stub page with only an intro skips the empty article grid
+  // a stub page with only an intro skips the empty article grid (and the byline with it)
   const hasBody =
     content.sections.length > 0 ||
     content.safety ||
@@ -126,6 +127,7 @@ export default function InfoTemplate({
                   </div>
                 </section>
               )}
+              <Byline updated={content.updated} className="mt-14" />
             </article>
             <aside className="hidden lg:block">
               <div className="sticky top-28 space-y-10">

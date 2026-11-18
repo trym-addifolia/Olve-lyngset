@@ -1,3 +1,4 @@
+import { CONTENT } from '@content/index'
 import { BASE_URL } from '@/lib/siteUrl'
 import { CONTACT_ROUTE, PUBLIC_ROUTES, encodePath } from '@/routes'
 import { site } from '@/site.config'
@@ -19,11 +20,15 @@ export function GET() {
     '',
     `${p.name}, ${p.titleLong} (${p.dacnb.long}). ${p.yearsInPractice}.`,
     `Arbeidssted: ${site.brand.clinicName}, ${site.contact.address.full}. Dette er ${p.firstName}s personlige faglige nettside.`,
-    'Språk: norsk (bokmål). Tekstene bygger på Olves eget arbeidsdokument.',
+    `Fagområder: ${p.topics.join(', ')}.`,
+    `Språk: norsk (bokmål). Tekstene er skrevet av ${p.name} og bygger på hans eget arbeidsdokument.`,
     '',
     '## Sider',
     '',
-    ...PUBLIC_ROUTES.map((r) => `- [${r.title}](${BASE_URL}${encodePath(r)}): ${r.description}`),
+    ...PUBLIC_ROUTES.map(
+      (r) =>
+        `- [${r.title}](${BASE_URL}${encodePath(r)}): ${r.description} Sist oppdatert ${CONTENT[r.slug].updated}.`,
+    ),
     '',
     '## Viktig',
     '',

@@ -11,6 +11,7 @@ import type { HomeContent } from '../types'
  */
 export const HOME_CONTENT: HomeContent = {
   kind: 'home',
+  updated: '2026-11-17',
   hero: {
     lede: [
       t(

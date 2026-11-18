@@ -10,6 +10,7 @@ import type { HubContent } from '../types'
  */
 export const SVIMMELHET_CONTENT: HubContent = {
   kind: 'hub',
+  updated: '2026-11-17',
   safety: true,
   heroPhoto: 'vog-profil',
   intro: t(

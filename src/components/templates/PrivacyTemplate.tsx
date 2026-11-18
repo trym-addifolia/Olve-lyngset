@@ -1,5 +1,6 @@
 import type { PrivacyContent } from '@content/types'
 import ArticleBody from '@/components/ArticleBody'
+import Byline from '@/components/Byline'
 import PageHero from '@/components/PageHero'
 import Toc from '@/components/Toc'
 import { type Route, crumbsOf } from '@/routes'
@@ -21,7 +22,7 @@ export default function PrivacyTemplate({
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 md:py-20 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,8fr)_minmax(0,4fr)] lg:gap-20">
           <article className="max-w-prose">
-            <p className="text-sm text-muted-foreground">Sist oppdatert {content.updated}</p>
+            <Byline updated={content.updated} author={false} />
             <div className="mt-8">
               <ArticleBody sections={content.sections} />
             </div>

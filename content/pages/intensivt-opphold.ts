@@ -10,6 +10,7 @@ import type { LandingContent } from '../types'
  */
 export const INTENSIVT_OPPHOLD_CONTENT: LandingContent = {
   kind: 'landing',
+  updated: '2026-11-17',
   contact: 'email',
   safety: false,
   intro: t(

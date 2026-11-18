@@ -50,6 +50,13 @@ export type Step = {
 export type Closing = { heading: string; lede: string }
 
 export type BaseContent = {
+  /**
+   * ISO date (YYYY-MM-DD) the text of the page last changed. Shown as «Sist
+   * oppdatert» and sent as dateModified and sitemap lastModified. Change it
+   * only when the text changes; it is not a review date («sist faglig
+   * gjennomgått», arbeidsdokument §13, comes when Olve reviews on a schedule).
+   */
+  updated: string
   /** first paragraph; carries the head keyword of the page */
   intro: Sourced
   faqs: Faq[]
@@ -118,6 +125,7 @@ export type ContactContent = BaseContent & {
 
 export type PrivacyContent = {
   kind: 'privacy'
+  /** ISO date, as on BaseContent */
   updated: string
   intro: Sourced
   sections: Section[]
@@ -159,6 +167,8 @@ export type HomeBlock = {
  */
 export type HomeContent = {
   kind: 'home'
+  /** ISO date, as on BaseContent */
+  updated: string
   hero: {
     /** the ingress under the H1, one or two paragraphs */
     lede: Sourced[]

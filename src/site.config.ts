@@ -115,6 +115,27 @@ export const site = {
     /** the HPR number alone, for the Person schema credential */
     hprId: '8056501',
     hprNumber: 'Kiropraktor, autorisert helsepersonell. HPR-nummer 8056501',
+    /**
+     * What the pages are about, in the words the pages use. Goes out as
+     * knowsAbout (Person schema) and «Fagområder» (llms.txt), so a search
+     * engine or a language model can tie the name to the topics. Only topics
+     * a page on this site actually covers.
+     */
+    topics: [
+      'Svimmelhet',
+      'Balanseproblemer',
+      'Krystallsyke (BPPV)',
+      'PPPD',
+      'Vedvarende plager etter hjernerystelse (postcommotio)',
+      'Undersøkelse av øyebevegelser med videobriller (VOG/VNG)',
+      'Kiropraktikk ved muskel- og skjelettplager',
+    ],
+    /**
+     * Other pages that are about Olve himself (his profile at Limbra, a
+     * register entry). Goes out as sameAs. Empty until Olve has given the
+     * addresses; krystallsyken.no is added by itself once it is live.
+     */
+    profiles: [] as string[],
     /** Palmer is in Davenport, Iowa (arbeidsdokument §10); the year is on the fact-check list */
     education:
       'Palmer College of Chiropractic, Davenport, Iowa, USA, {{OLVE_BEKREFT: utdanningsår | 1993}}',
@@ -208,12 +229,16 @@ export const site = {
   },
 
   /**
-   * Limbra Storgata. The coordinates are approximate, so they stay out of the
-   * Person schema (src/lib/schema.ts) until checked against Kartverket.
+   * Limbra Storgata. The coordinates are Kartverket's point for the address
+   * and go out with the work location in the Person schema.
    */
   location: {
     city: 'Lillestrøm',
-    geo: { latitude: 59.9559, longitude: 11.0495, source: 'omtrentlig, bekreftes mot Kartverket' },
+    geo: {
+      latitude: 59.95722,
+      longitude: 11.04903,
+      source: 'Kartverket adresse-API, Storgata 25B, 2000 Lillestrøm (adresseid 92258828), hentet 2026-11-18',
+    },
   },
 
   booking: {

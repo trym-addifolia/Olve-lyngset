@@ -9,6 +9,7 @@ import type { InfoContent } from '../types'
  */
 export const UNDERSOKELSE_CONTENT: InfoContent = {
   kind: 'info',
+  updated: '2026-11-17',
   safety: false,
   heroPhoto: 'vog-pasient-oreplansje',
   intro: t(
