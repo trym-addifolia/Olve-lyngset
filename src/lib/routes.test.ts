@@ -2,7 +2,6 @@ import { CONTENT } from '@content/index'
 import { describe, expect, it } from 'vitest'
 import {
   KNOWN_SLUGS,
-  PUBLIC_ROUTES,
   ROUTES,
   SAFETY_HREF,
   crumbsOf,

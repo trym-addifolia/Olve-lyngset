@@ -13,7 +13,6 @@ export default function PrivacyTemplate({
     <>
       <PageHero
         crumbs={crumbsOf(route)}
-        eyebrow={route.eyebrow}
         h1={route.h1}
         intro={content.intro.text}
         source={route.slug}

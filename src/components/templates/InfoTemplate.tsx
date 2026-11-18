@@ -57,7 +57,6 @@ export default function InfoTemplate({
     <>
       <PageHero
         crumbs={crumbsOf(route)}
-        eyebrow={route.eyebrow}
         h1={route.h1}
         intro={content.intro.text}
         source={route.slug}
@@ -70,7 +69,7 @@ export default function InfoTemplate({
               topic={safetyTopic}
               headingId="ring-113-hero"
               moreLink={!holdsSafetyAdvice}
-              className="bg-background"
+              className="bg-card"
             />
           ) : undefined
         }
@@ -93,7 +92,7 @@ export default function InfoTemplate({
                   id={EQUIPMENT_ID}
                   className="mt-16 scroll-mt-28 border-t border-border pt-14 md:mt-20"
                 >
-                  <SectionHeading eyebrow="Oversikt" title="Utstyr og tester" />
+                  <SectionHeading title="Utstyr og tester" />
                   <div className="mt-8 grid gap-8 sm:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] sm:items-start">
                     <Photo name="videobriller" className="mx-auto sm:mx-0" />
                     <EquipmentList columns={1} />
@@ -120,7 +119,6 @@ export default function InfoTemplate({
                   className="mt-16 scroll-mt-28 border-t border-border pt-14 md:mt-20"
                 >
                   <SectionHeading
-                    eyebrow="Spørsmål og svar"
                     title={`Vanlige spørsmål om ${topicOf(route)}`}
                   />
                   <div className="mt-6">

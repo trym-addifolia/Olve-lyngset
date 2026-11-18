@@ -1,5 +1,4 @@
 import type { ContactContent } from '@content/types'
-import { CalendarCheck, Mail, Phone } from 'lucide-react'
 import Link from 'next/link'
 import CtaBand from '@/components/CtaBand'
 import FaqAccordion from '@/components/FaqAccordion'
@@ -23,21 +22,18 @@ export default function ContactTemplate({
 }: { route: Route; content: ContactContent }) {
   const intents = [
     {
-      icon: CalendarCheck,
       title: 'Bestill time',
       body: `En vanlig konsultasjon bestiller du i timebestillingen hos ${site.brand.clinicName}.`,
       href: bookingHref('kontakt:intent'),
       primary: true,
     },
     {
-      icon: Mail,
       title: 'Intensivt opphold',
       body: `Spør om et intensivt rehabiliteringsopphold på ${site.contact.email}. Ikke send helseopplysninger i vanlig e-post.`,
       href: site.contact.emailHref,
       primary: false,
     },
     {
-      icon: Phone,
       title: 'Telefon',
       // display carries its own OLVE_BEKREFT marker until the number is confirmed (§11)
       body: site.contact.phone.display,
@@ -49,7 +45,6 @@ export default function ContactTemplate({
     <>
       <PageHero
         crumbs={crumbsOf(route)}
-        eyebrow={route.eyebrow}
         h1={route.h1}
         intro={content.intro.text}
         source={route.slug}
@@ -57,26 +52,20 @@ export default function ContactTemplate({
       />
       <section className="py-12 md:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <ul className="grid gap-x-10 gap-y-6 md:grid-cols-3">
+          <ul className="grid gap-4 md:grid-cols-3 lg:gap-6">
             {intents.map((it) => {
-              const Icon = it.icon
               return (
                 // the title is the link, not the whole card: the body can hold an
                 // unconfirmed-fact marker, which is a button of its own
                 <li
                   key={it.title}
-                  className={`flex h-full flex-col rounded-lg p-6 transition-colors ${
+                  className={`reveal flex h-full flex-col p-6 transition-colors sm:p-8 ${
                     it.primary
                       ? 'bg-fjord-700 text-white focus-within:bg-fjord-800 hover:bg-fjord-800'
-                      : 'border-t-2 border-fjord-200 pt-5 focus-within:border-fjord-700 hover:border-fjord-700'
+                      : 'bg-card focus-within:bg-fjord-50 hover:bg-fjord-50'
                   }`}
                 >
-                  <Icon
-                    className={`h-6 w-6 ${it.primary ? 'text-white' : 'text-fjord-700'}`}
-                    aria-hidden="true"
-                    strokeWidth={1.5}
-                  />
-                  <h2 className="mt-4 text-display-sm">
+                  <h2 className="text-display-sm md:text-display-md">
                     <a
                       href={it.href}
                       className={`underline decoration-1 underline-offset-4 hover:decoration-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
@@ -89,7 +78,7 @@ export default function ContactTemplate({
                     </a>
                   </h2>
                   <p
-                    className={`mt-2 text-[0.9375rem] leading-relaxed ${it.primary ? 'text-white/80' : 'text-muted-foreground'}`}
+                    className={`mt-3 text-base leading-relaxed ${it.primary ? 'text-white/90' : 'text-foreground/85'}`}
                   >
                     <RichText text={it.body} />
                   </p>
@@ -97,7 +86,7 @@ export default function ContactTemplate({
               )
             })}
           </ul>
-          <p className="mt-8 text-[0.9375rem] text-muted-foreground">
+          <p className="mt-8 text-base text-muted-foreground">
             Ved plutselig kraftig svimmelhet med tegn på slag: ring 113 først.{' '}
             <Link
               href={SAFETY_HREF}
@@ -110,10 +99,9 @@ export default function ContactTemplate({
         </div>
       </section>
 
-      <section className="border-t border-border py-16 md:py-24">
+      <section className="py-16 md:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            eyebrow="Praktisk"
             title={`Finn frem til ${site.contact.address.street}`}
           />
           <LocationCard className="mt-10" practical={content.practical} />
@@ -121,9 +109,9 @@ export default function ContactTemplate({
       </section>
 
       {content.faqs.length > 0 && (
-        <section id="faq" className="scroll-mt-28 border-t border-border py-16 md:py-24">
-          <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16 lg:px-8">
-            <SectionHeading eyebrow="Spørsmål og svar" title="Vanlige spørsmål om timebestilling" />
+        <section id="faq" className="scroll-mt-28 py-16 md:py-24">
+          <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16 lg:px-8">
+            <SectionHeading title="Vanlige spørsmål om timebestilling" />
             <FaqAccordion faqs={content.faqs} path={pathOf(route)} />
           </div>
         </section>
