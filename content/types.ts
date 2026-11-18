@@ -128,7 +128,7 @@ export type PrivacyContent = {
  * svimmelhet and hjernerystelse are «to likeverdige hovedinnganger»). The text
  * is §4 in full: `lede` is the first paragraph (what the reader recognises),
  * `body` the rest. `quote` is one sentence of that text lifted out and set
- * large (direction A sets it as a typographic plate, B as a pull line).
+ * large, as a pull line.
  */
 export type HomeDoor = {
   id: string
@@ -150,7 +150,7 @@ export type HomeBlock = {
 }
 
 /**
- * The home page, shared by direction A (/) and direction B (/retning-b). The
+ * The home page (/). The
  * H1 and eyebrow live in the route registry. Every text block is
  * arbeidsdokument §4 in full; the practical block and the FAQ only say what
  * the page itself answers. Photo choice is a design decision of each
@@ -165,7 +165,7 @@ export type HomeContent = {
     /** the button beside «Bestill time» */
     secondary: { label: string; href: string }
   }
-  /** Olve's own core sentence (arbeidsdokument §2), the centrepiece of direction B */
+  /** Olve's own core sentence (arbeidsdokument §2), the centrepiece of the home page */
   motto: Sourced
   /** svimmelhet og balanse, then plager etter hjernerystelse */
   doors: [HomeDoor, HomeDoor]

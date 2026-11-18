@@ -85,7 +85,7 @@ export async function middleware(request: NextRequest) {
   }
   const response = NextResponse.next()
   // noindex in the HTTP header too (meta and robots.txt already key off the same
-  // switch); preview-only pages (/retning-b) carry it on the production host as well
+  // switch); hidden pages carry it on the production host as well
   if (!ALLOW_INDEX || HIDDEN_PATHS.has(request.nextUrl.pathname.replace(/\/+$/, ''))) {
     response.headers.set('X-Robots-Tag', 'noindex, nofollow')
   }

@@ -1,7 +1,6 @@
 import { CONTENT } from '@content/index'
 import { describe, expect, it } from 'vitest'
 import {
-  HOME_B,
   KNOWN_SLUGS,
   PUBLIC_ROUTES,
   ROUTES,
@@ -15,7 +14,6 @@ import {
 /** The content kind each template renders (src/app/[...slug]/page.tsx). */
 const KIND_OF_TEMPLATE = {
   home: 'home',
-  'home-b': 'home',
   info: 'info',
   hub: 'hub',
   landing: 'landing',
@@ -35,13 +33,6 @@ describe('route registry', () => {
   it('has no content without a route', () => {
     const slugs = new Set(ROUTES.map((r) => r.slug))
     expect(Object.keys(CONTENT).filter((s) => !slugs.has(s))).toEqual([])
-  })
-
-  it('keeps direction B out of everything public', () => {
-    expect(HOME_B.hidden).toBe(true)
-    expect(HOME_B.nav).toEqual([])
-    expect(PUBLIC_ROUTES).not.toContain(HOME_B)
-    expect(HOME_B.title.startsWith('[Forhåndsvisning B]')).toBe(true)
   })
 
   it('resolves nested slugs, encoded or not', () => {

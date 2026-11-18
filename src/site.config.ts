@@ -273,24 +273,7 @@ export const site = {
       900: '#082A32',
     },
     /**
-     * moss: the accent of home direction A («To dører»). A muted green beside
-     * the petrol; 700 and darker pass as text on paper.
-     */
-    moss: {
-      DEFAULT: '#4F663A',
-      50: '#F2F5EE',
-      100: '#E1E9D8',
-      200: '#C4D3B3',
-      300: '#A1B888',
-      400: '#7F9C63',
-      500: '#647F4A',
-      600: '#4F663A',
-      700: '#3F5130',
-      800: '#334128',
-      900: '#283320',
-    },
-    /**
-     * ochre: the accent of home direction B («Det er hjelp å få»). Warm, never
+     * ochre: the accent of the home page («Det er hjelp å få»). Warm, never
      * orange; 700 and darker pass as text on paper.
      */
     ochre: {

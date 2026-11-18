@@ -7,8 +7,8 @@
     /*
      * Linen and petrol: a pale linen ground, petrol ink, petrol as the only
      * primary (the colour shared with krystallsyken.no). Orange (krystall) is
-     * reserved for the sister-site link on /svimmelhet/krystallsyke, moss and
-     * ochre for the two home directions, red for the 113 box. Mirrors the hex scales in site.config.ts theme; no hex
+     * reserved for the sister-site link on /svimmelhet/krystallsyke, ochre
+     * for the home page, red for the 113 box. Mirrors the hex scales in site.config.ts theme; no hex
      * literals elsewhere in src/ except src/lib/og.tsx.
      */
     --background: 43 26% 95%;        /* warm linen #F5F3EE */
@@ -106,4 +106,31 @@
   outline-offset: 4px;
   border-radius: 2px;
   cursor: pointer;
+}
+
+/*
+ * Home page motion. Quiet on purpose: many readers here are dizzy, so parts
+ * only fade in with a few pixels of rise; nothing pins, slides far or follows
+ * the scroll. `rise` runs once on load (the hero), `reveal` as a part enters
+ * the viewport. Pure CSS: without support, or with reduced motion, everything
+ * is simply there.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: none; }
+  }
+  .rise { animation: rise 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+  .rise-1 { animation-delay: 80ms; }
+  .rise-2 { animation-delay: 180ms; }
+  .rise-3 { animation-delay: 280ms; }
+
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0px entry 220px;
+    }
+    .reveal-late { animation-range: entry 70px entry 300px; }
+  }
 }

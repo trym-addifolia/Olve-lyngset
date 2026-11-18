@@ -40,8 +40,7 @@ export const metadata: Metadata = {
   applicationName: site.brand.name,
   openGraph: { siteName: site.brand.name, locale: 'nb_NO', type: 'website' },
   twitter: { card: 'summary_large_image' },
-  // noindex everywhere except on the production host (siteUrl.ts); /retning-b
-  // sets its own noindex, which holds on production too
+  // noindex everywhere except on the production host (siteUrl.ts);
   robots: ALLOW_INDEX ? { index: true, follow: true } : { index: false, follow: false },
 }
 

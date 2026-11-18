@@ -12,9 +12,9 @@ Next.js 15 (App Router, React 18), TypeScript strict, Tailwind 3 med shadcn-komp
 
 ## Struktur
 - `src/site.config.ts`: alle fakta om Olve og arbeidsstedet. Ubekreftede fakta skrives `{{OLVE_BEKREFT: etikett | visning}}` og vises merket på siden. Mekanismen skal beholdes til Olve har bekreftet alt.
-- `src/routes.ts`: sideregisteret (slug, mal, tittel, H1, meny). Nestede slugs er lov (`svimmelhet/krystallsyke`). `hidden` holder en side utenfor sitemap, llms.txt og meny og gir noindex (`/retning-b`).
+- `src/routes.ts`: sideregisteret (slug, mal, tittel, H1, meny). Nestede slugs er lov (`svimmelhet/krystallsyke`). `hidden` holder en side utenfor sitemap, llms.txt og meny og gir noindex.
 - `content/pages/*.ts`: sideteksten, én fil per side. Hvert faktum har en `source` (som regel `arbeidsdokument §N`). `content/index.ts` kobler slug til innhold.
-- `src/components/templates/`: én mal per sidetype. `src/app/[...slug]/page.tsx` velger mal etter `content.kind`. Forsiden har to retninger: `HomeTemplate` (A, `/`) og `HomeTemplateB` (B, `/retning-b`).
+- `src/components/templates/`: én mal per sidetype. `src/app/[...slug]/page.tsx` velger mal etter `content.kind`. Forsiden er `HomeTemplate` («Det er hjelp å få», oker aksent), valgt av Trym 2026-11-18.
 - `src/photos.ts` og `public/bilder/`: klinikkens egne bilder, eksportert uten EXIF.
 - `docs/olve/olvelyngset_nettside_arbeidsdokument.md`: Olves arbeidsdokument, kilden til tekstene. Design i `docs/superpowers/specs/`, plan i `docs/superpowers/plans/`.
 

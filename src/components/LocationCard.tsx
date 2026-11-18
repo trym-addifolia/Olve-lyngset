@@ -20,8 +20,8 @@ export default function LocationCard({
             <br />
             {site.contact.address.postalCode} {site.contact.address.city}
           </address>
-          <p className="mt-2 text-[0.9375rem] text-muted-foreground">{site.brand.clinicName}</p>
-          <p className="mt-4 text-[0.9375rem]">
+          <p className="mt-2 text-base text-muted-foreground">{site.brand.clinicName}</p>
+          <p className="mt-4 text-base">
             <a
               href={site.contact.address.googleMapsUrl}
               target="_blank"
@@ -35,7 +35,7 @@ export default function LocationCard({
         <div className="border-t border-border pt-5">
           <h3 className="font-sans text-base font-semibold text-foreground">Åpningstider</h3>
           {site.hours.verified ? (
-            <dl className="mt-3 space-y-1.5 text-[0.9375rem]">
+            <dl className="mt-3 space-y-1.5 text-base">
               {hoursRows().map((r) => (
                 <div
                   key={r.day}
@@ -47,17 +47,17 @@ export default function LocationCard({
               ))}
             </dl>
           ) : (
-            <p className="mt-3 text-[0.9375rem] leading-relaxed">
+            <p className="mt-3 text-base leading-relaxed">
               <RichText text={site.hours.note} />
             </p>
           )}
-          <p className="mt-4 text-[0.9375rem] text-muted-foreground">
+          <p className="mt-4 text-base text-muted-foreground">
             Nettbooking er åpen hele døgnet.
           </p>
         </div>
       </div>
       {practical.length > 0 && (
-        <ul className="mt-8 grid gap-x-10 gap-y-3 text-[0.9375rem] leading-relaxed text-foreground/85 sm:grid-cols-2">
+        <ul className="mt-8 grid gap-x-10 gap-y-3 text-base leading-relaxed text-foreground/85 sm:grid-cols-2">
           {practical.map((p) => (
             <li key={p.text} className="border-t border-border/70 pt-3">
               {p.label && (
