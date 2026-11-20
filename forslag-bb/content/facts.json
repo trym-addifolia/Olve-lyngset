@@ -1,0 +1,487 @@
+{
+ "behandler_navn": {
+  "value": "Olve Lyngset",
+  "status": "bekreftet",
+  "blocks": "bygg",
+  "source": "Olve, intervju, gjengitt som avklart fakta i Olves arbeidsdokument v0.9 (docs/olve/olvelyngset_nettside_arbeidsdokument.md) §2, mottatt 2026-11-17"
+ },
+ "profesjon": {
+  "value": "Kiropraktor",
+  "status": "bekreftet",
+  "blocks": "bygg",
+  "source": "Olve, intervju, gjengitt som avklart fakta i Olves arbeidsdokument v0.9 (docs/olve/olvelyngset_nettside_arbeidsdokument.md) §2, mottatt 2026-11-17"
+ },
+ "hpr_nummer": {
+  "value": "8056501",
+  "status": "ubekreftet",
+  "blocks": "lansering",
+  "ask": "Er HPR-nummeret ditt 8056501? Det står på Tryms utkast til krystallsyken.no (fra Trym 2026-11-12), men feltet var tomt i svaret ditt 11.11.",
+  "source": "krystallsyken-repoet (practitioner.hprNumber, «Trym 2026-11-12»), ikke bekreftet av Olve"
+ },
+ "tittel_linje": {
+  "value": "Kiropraktor, DACNB",
+  "status": "ubekreftet",
+  "blocks": "lansering",
+  "ask": "Kan tittelen skrives «Kiropraktor, DACNB» på nettsiden? Dokumentet ønsker det (§2), men §18 sier at bruk av DACNB-betegnelsen må bekreftes. Hvordan står du i Helsepersonellregisteret?",
+  "source": "Olves arbeidsdokument v0.9 (docs/olve/olvelyngset_nettside_arbeidsdokument.md) §1 og §2, ikke bekreftet (§18)"
+ },
+ "tilstand": {
+  "value": "Svimmelhet og balanse, langvarige plager etter hjernerystelse, intensivt rehabiliteringsopphold og vanlige muskel- og skjelettplager",
+  "status": "bekreftet",
+  "blocks": "bygg",
+  "source": "Olves arbeidsdokument v0.9 (docs/olve/olvelyngset_nettside_arbeidsdokument.md) §1 «Anbefalt prioritering» og §18 «Avklart»"
+ },
+ "avsender": {
+  "value": "Olves personlige faglige nettside, ikke Limbras",
+  "status": "bekreftet",
+  "blocks": "bygg",
+  "source": "Olve, intervju, gjengitt som avklart fakta i Olves arbeidsdokument v0.9 (docs/olve/olvelyngset_nettside_arbeidsdokument.md) §2, mottatt 2026-11-17",
+  "type": "paastand"
+ },
+ "kjede_forhold": {
+  "value": "",
+  "status": "ubekreftet",
+  "blocks": "lansering",
+  "ask": "Er du ansatt, leietaker eller selvstendig hos Limbra? Har Limbra regler for egen markedsføring, egen Google-profil og bruk av Limbra-navnet og -logoen (også på polo-skjorten i portrettet)?",
+  "type": "paastand"
+ },
+ "skriftlig_aksept": {
+  "value": "",
+  "status": "ubekreftet",
+  "blocks": "lansering",
+  "ask": "Godkjenner du hver side før publisering, og står du ansvarlig etter helsepersonelloven § 13 (skriftlig ja)?",
+  "type": "paastand"
+ },
+ "timen_tekst": {
+  "value": "Tekstutkastene i §4 til §11",
+  "status": "bekreftet",
+  "blocks": "bygg",
+  "source": "Olves arbeidsdokument v0.9 (docs/olve/olvelyngset_nettside_arbeidsdokument.md) §4 til §11 (forslag som Olve skal lese gjennom før publisering)",
+  "type": "paastand"
+ },
+ "antall_timer": {
+  "value": "varierer",
+  "status": "ubekreftet",
+  "blocks": "lansering",
+  "ask": "Hva sier du til en pasient som spør hvor mange timer som trengs? Dokumentet har ikke tall, og vi skriver ingen."
+ },
+ "utstyr": {
+  "value": "Videobriller (VOG/VNG), sakkadometer, balanse- og koordinasjonsprøver, nevrologiske tester",
+  "status": "bekreftet",
+  "blocks": "bygg",
+  "source": "Olves arbeidsdokument v0.9 (docs/olve/olvelyngset_nettside_arbeidsdokument.md) §8 og §18 «VOG/VNG og andre tester er viktige deler av tilnærmingen»",
+  "type": "paastand"
+ },
+ "akutt_boks": {
+  "value": "113",
+  "status": "bekreftet",
+  "blocks": "bygg",
+  "source": "helsenorge.no, Svimmelhet og Hjernerystelse: ring 113 når du tror det er farlig eller lett kan bli det, lest 2026-11-18 (https://www.helsenorge.no/sykdom/svimmelhet-og-balanseforstyrrelser/svimmelhet/)",
+  "literalOk": true
+ },
+ "schema_specialty": {
+  "value": "Chiropractic",
+  "status": "bekreftet",
+  "blocks": "bygg",
+  "source": "schema.org MedicalSpecialty for profesjonen kiropraktor"
+ },
+ "fototime_dato": {
+  "value": "2026-11-10",
+  "status": "ubekreftet",
+  "blocks": "lansering",
+  "source": "Klinikkens egne bilder tatt 2026-11-10 (iPhone), levert av Trym 2026-11-16, se krystallsyken-repoet src/photos.ts (tekstforslag, ikke avklart)",
+  "ask": "Er bildene tatt 2026-11-10 på klinikken, og hvem tok dem?"
+ },
+ "portrett_fil": {
+  "value": "public/foto/olve-lyngset.jpg",
+  "status": "ubekreftet",
+  "blocks": "lansering",
+  "ask": "Portrett i full oppløsning (minst 1600 px bred). Dagens fil er 960 px bred, eksportert fra mobilbildet 2026-11-10. Er dette bildet godkjent av deg, og finnes originalen?",
+  "source": "Klinikkens eget bilde, 2026-11-10, levert av Trym 2026-11-16"
+ },
+ "bilderett": {
+  "value": "",
+  "status": "ubekreftet",
+  "blocks": "lansering",
+  "ask": "Godkjenner du de tre bildene (portrettet, deg med nakkemodellen, øyet på skjermen) for nettsiden? Hvem tok dem, og har personen hvis øye og hode vises på skjermbildet samtykket?",
+  "type": "paastand"
+ },
+ "klinikk_navn": {
+  "value": "Limbra Storgata",
+  "status": "bekreftet",
+  "blocks": "preview",
+  "source": "Olve, intervju, gjengitt som avklart fakta i Olves arbeidsdokument v0.9 (docs/olve/olvelyngset_nettside_arbeidsdokument.md) §2, mottatt 2026-11-17"
+ },
+ "adresse": {
+  "value": "Storgata 25B, 2000 Lillestrøm",
+  "status": "bekreftet",
+  "blocks": "preview",
+  "source": "krystallsyken.no-repoet (src/site.config.ts, commit 3711b8c) og Tryms forhåndsvisning https://krystallsyken.hei-0de.workers.dev (noindex), sjekket 2026-11-18. «Storgata 25b» står også på dagens offentlige krystallsyken.no."
+ },
+ "telefon": {
+  "value": "906 66 485",
+  "status": "bekreftet",
+  "blocks": "preview",
+  "source": "krystallsyken.no-repoet (src/site.config.ts, commit 3711b8c) og Tryms forhåndsvisning https://krystallsyken.hei-0de.workers.dev (noindex), sjekket 2026-11-18. Nummeret står på dagens offentlige krystallsyken.no. Hvem det går til, står åpent i telefon_eier."
+ },
+ "booking_lenke": {
+  "value": "https://onlinebooking.solvitjournal.no/limbra_lillestrom_eureka/2907/book-available?treatmentType=0",
+  "status": "bekreftet",
+  "blocks": "preview",
+  "source": "krystallsyken.no-repoet (src/site.config.ts, commit 3711b8c) og Tryms forhåndsvisning https://krystallsyken.hei-0de.workers.dev (noindex), sjekket 2026-11-18. booking.deeplinkUrl, verified: true; forhåndsvisningens /go/bestill svarte 302 til denne adressen 2026-11-18. Dagens offentlige krystallsyken.no lenker til samme klinikk-id (2907) under en eldre adresse."
+ },
+ "pris_forste": {
+  "value": "",
+  "status": "ubekreftet",
+  "blocks": "lansering",
+  "ask": "Priser vises ikke på nettsiden (husregel og § 13-avgrensning). Skal siden si noe om pris i det hele tatt, for eksempel «pris står i timebestillingen hos Limbra»?"
+ },
+ "erfaring_tilstand": {
+  "value": "",
+  "status": "ubekreftet",
+  "blocks": "lansering",
+  "ask": "Hvor lenge har du arbeidet med svimmelhet og med plager etter hjernerystelse? (Dokumentet sier bare «mer enn 30 års klinisk erfaring» totalt.)"
+ },
+ "nedslagsfelt": {
+  "value": "Pasienter kommer særlig fra Østlandet, men noen med mer sammensatte plager reiser fra andre deler av landet",
+  "status": "bekreftet",
+  "blocks": "bygg",
+  "source": "Olve, intervju, gjengitt som avklart fakta i Olves arbeidsdokument v0.9 (docs/olve/olvelyngset_nettside_arbeidsdokument.md) §2, mottatt 2026-11-17",
+  "type": "paastand"
+ },
+ "juridisk_navn": {
+  "value": "LOL AS",
+  "status": "bekreftet",
+  "blocks": "lansering",
+  "source": "Brønnøysundregistrene via krystallsyken-repoet (LOL AS, sjekket 2026-11-12). Vises ikke på siden."
+ },
+ "orgnr": {
+  "value": "928 308 979",
+  "status": "bekreftet",
+  "blocks": "lansering",
+  "source": "Brønnøysundregistrene via krystallsyken-repoet (LOL AS, sjekket 2026-11-12). Vises ikke på siden."
+ },
+ "apningstider": {
+  "value": "Mandag og onsdag 07:30 til 15:00, tirsdag og torsdag 07:30 til 18:00, fredag 07:30 til 12:00",
+  "status": "bekreftet",
+  "blocks": "lansering",
+  "type": "paastand",
+  "source": "Olves eget svar 2026-11-11 (krystallsyken/resultater/olve/2026-11-11-olve-svar-nettsiden.md), også i krystallsyken.no-repoet (src/site.config.ts, commit 3711b8c) og Tryms forhåndsvisning https://krystallsyken.hei-0de.workers.dev (noindex), sjekket 2026-11-18. "
+ },
+ "parkering_inngang": {
+  "value": "Inngang på gateplan, Limbra står på skiltet. Klinikken har ingen egen parkering. Du kan parkere i parkeringshuset på Lillestrøm Torv.",
+  "status": "bekreftet",
+  "blocks": "lansering",
+  "type": "paastand",
+  "source": "Olves eget svar 2026-11-11 («ingen parkering, må parkere i parkeringshus Lillestrøm Torv»), tekst fra krystallsyken.no-repoet (src/site.config.ts, commit 3711b8c) og Tryms forhåndsvisning https://krystallsyken.hei-0de.workers.dev (noindex), sjekket 2026-11-18. "
+ },
+ "reise": {
+  "value": "",
+  "status": "ubekreftet",
+  "blocks": "lansering",
+  "ask": "Gangavstand fra nærmeste stasjon eller holdeplass",
+  "type": "paastand"
+ },
+ "behandlingsansvarlig": {
+  "value": "",
+  "status": "ubekreftet",
+  "blocks": "lansering",
+  "ask": "Hvem er behandlingsansvarlig for personopplysninger på nettstedet (navn, e-post)? Nettstedet har i dag ingen skjema, informasjonskapsler eller statistikk."
+ },
+ "domene": {
+  "value": "olvelyngset.no",
+  "status": "ubekreftet",
+  "blocks": "lansering",
+  "ask": "olvelyngset.no er opplyst ledig, men må kjøpes og kontrolleres på nytt. Hvem eier domenet og DNS?",
+  "source": "Olves arbeidsdokument v0.9 (docs/olve/olvelyngset_nettside_arbeidsdokument.md) §16"
+ },
+ "google_profil": {
+  "value": "",
+  "status": "ubekreftet",
+  "blocks": "lansering",
+  "ask": "Tilgang til Google-profilen (manager), Search Console, eventuell Ads-konto",
+  "type": "paastand"
+ },
+ "gammel_side": {
+  "value": "krystallsyken.no (Olve eier domenet, innholdet er under omarbeiding)",
+  "status": "bekreftet",
+  "blocks": "bygg",
+  "source": "Olves arbeidsdokument v0.9 (docs/olve/olvelyngset_nettside_arbeidsdokument.md) §16",
+  "type": "paastand"
+ },
+ "tekst_godkjent": {
+  "value": "",
+  "status": "ubekreftet",
+  "blocks": "lansering",
+  "ask": "Alle sider lest og godkjent av deg (dato). Tekstene er dine forslag fra arbeidsdokumentet (blant annet historien om ishockey, henvisning videre og faresignalene), lett strammet; ingen av dem publiseres før du har godkjent dem.",
+  "type": "paastand"
+ },
+ "tegninger_godkjent": {
+  "value": "",
+  "status": "ubekreftet",
+  "blocks": "lansering",
+  "ask": "Alle tegninger og bildetekster faglig godkjent av deg (dato)",
+  "type": "paastand"
+ },
+ "nodnummer": {
+  "value": "113",
+  "status": "bekreftet",
+  "blocks": "bygg",
+  "source": "helsenorge.no, offentlig nødnummer",
+  "literalOk": true
+ },
+ "legevakt": {
+  "value": "116 117",
+  "status": "bekreftet",
+  "blocks": "bygg",
+  "source": "helsenorge.no, legevaktnummer",
+  "literalOk": true
+ },
+ "dacnb": {
+  "value": "DACNB (Diplomate of the American Chiropractic Neurology Board)",
+  "status": "ubekreftet",
+  "blocks": "lansering",
+  "ask": "Bekreft at du har bestått DACNB, at sertifiseringen er gyldig i dag, og at vi kan nevne den med forklaring «amerikansk sertifisering» (hpl § 74 og § 13). Logo eller merke brukes ikke uten ditt ja.",
+  "source": "Olves arbeidsdokument v0.9 (docs/olve/olvelyngset_nettside_arbeidsdokument.md) §2 og §10, faktasjekk §10 og §18",
+  "type": "paastand"
+ },
+ "by": {
+  "value": "Lillestrøm",
+  "status": "bekreftet",
+  "blocks": "bygg",
+  "source": "Olve, intervju, gjengitt som avklart fakta i Olves arbeidsdokument v0.9 (docs/olve/olvelyngset_nettside_arbeidsdokument.md) §2, mottatt 2026-11-17"
+ },
+ "epost": {
+  "value": "kontakt@olvelyngset.no",
+  "status": "ubekreftet",
+  "blocks": "preview",
+  "ask": "Adressen kontakt@olvelyngset.no er planlagt (dokumentet §7 og §11). Den må opprettes og testes (SPF, DKIM, DMARC) før den vises.",
+  "source": "Olves arbeidsdokument v0.9 (docs/olve/olvelyngset_nettside_arbeidsdokument.md) §7 og §11, planlagt adresse"
+ },
+ "epost_emne": {
+  "value": "Forespørsel om intensivt rehabiliteringsopphold",
+  "status": "bekreftet",
+  "blocks": "bygg",
+  "source": "Olves arbeidsdokument v0.9 (docs/olve/olvelyngset_nettside_arbeidsdokument.md) §15 «Anbefalt e-postemne»"
+ },
+ "varighet_forste_svimmelhet": {
+  "value": "omtrent 40 til 50 minutter",
+  "status": "ubekreftet",
+  "blocks": "preview",
+  "ask": "Hvor lang er første konsultasjon ved svimmelhetsundersøkelse i bookingoppsettet? Dokumentet sier «omtrent 40 til 50 minutter» og at det må bekreftes.",
+  "source": "Olves arbeidsdokument v0.9 (docs/olve/olvelyngset_nettside_arbeidsdokument.md) §11"
+ },
+ "varighet_forste_hjernerystelse": {
+  "value": "omtrent 50 til 60 minutter",
+  "status": "ubekreftet",
+  "blocks": "preview",
+  "ask": "Hvor lang er første konsultasjon ved langvarige plager etter hjernerystelse i bookingoppsettet? Dokumentet sier «omtrent 50 til 60 minutter» og at det må bekreftes.",
+  "source": "Olves arbeidsdokument v0.9 (docs/olve/olvelyngset_nettside_arbeidsdokument.md) §11"
+ },
+ "opphold_varighet": {
+  "value": "omkring én uke",
+  "status": "ubekreftet",
+  "blocks": "lansering",
+  "ask": "Varer et intensivt opphold «ofte omkring én uke»?",
+  "source": "Olves arbeidsdokument v0.9 (docs/olve/olvelyngset_nettside_arbeidsdokument.md) §7 (tekstforslag)"
+ },
+ "opphold_okter": {
+  "value": "tre til fem økter",
+  "status": "ubekreftet",
+  "blocks": "lansering",
+  "ask": "Stemmer «tre til fem økter i løpet av dagen, med hvile mellom»?",
+  "source": "Olves arbeidsdokument v0.9 (docs/olve/olvelyngset_nettside_arbeidsdokument.md) §7 (tekstforslag)"
+ },
+ "opphold_nytt_besok": {
+  "value": "omtrent to til tre måneder",
+  "status": "ubekreftet",
+  "blocks": "lansering",
+  "ask": "Er et nytt besøk «etter omtrent to til tre måneder» riktig å skrive?",
+  "source": "Olves arbeidsdokument v0.9 (docs/olve/olvelyngset_nettside_arbeidsdokument.md) §7 (tekstforslag)"
+ },
+ "erfaring_ar": {
+  "value": "tretti",
+  "status": "bekreftet",
+  "blocks": "bygg",
+  "source": "Olve, intervju, gjengitt som avklart fakta i Olves arbeidsdokument v0.9 (docs/olve/olvelyngset_nettside_arbeidsdokument.md) §2, mottatt 2026-11-17",
+  "note": "Skrevet med bokstaver: Atkinson Hyperlegible har nulltegn med strek, og «30» leses lett som «3Ø». Dokumentet sier «mer enn 30 års klinisk erfaring»."
+ },
+ "nkf_medlem": {
+  "value": "Medlem av Norsk Kiropraktorforening",
+  "status": "bekreftet",
+  "blocks": "bygg",
+  "source": "Olve, intervju, gjengitt som avklart fakta i Olves arbeidsdokument v0.9 (docs/olve/olvelyngset_nettside_arbeidsdokument.md) §2, mottatt 2026-11-17",
+  "type": "paastand"
+ },
+ "videreutdanning": {
+  "value": "Videreutdanning i funksjonell nevrologi, blant annet gjennom Carrick Institute, og fordypning i vestibulær rehabilitering",
+  "status": "bekreftet",
+  "blocks": "bygg",
+  "source": "Olve, intervju, gjengitt som avklart fakta i Olves arbeidsdokument v0.9 (docs/olve/olvelyngset_nettside_arbeidsdokument.md) §2, mottatt 2026-11-17",
+  "type": "paastand"
+ },
+ "undervisning": {
+  "value": "Har undervist og holdt foredrag for kolleger og andre om blant annet svimmelhet og funksjonell nevrologi",
+  "status": "bekreftet",
+  "blocks": "bygg",
+  "source": "Olve, intervju, gjengitt som avklart fakta i Olves arbeidsdokument v0.9 (docs/olve/olvelyngset_nettside_arbeidsdokument.md) §2, mottatt 2026-11-17",
+  "type": "paastand"
+ },
+ "utdanning_sted": {
+  "value": "Davenport i Iowa, USA",
+  "status": "ubekreftet",
+  "blocks": "lansering",
+  "ask": "Eksakt navn på utdanningsinstitusjonen og år (dokumentet §10 «Faktasjekk før publisering»)",
+  "source": "Olves arbeidsdokument v0.9 (docs/olve/olvelyngset_nettside_arbeidsdokument.md) §10",
+  "type": "paastand"
+ },
+ "navngitte_personer": {
+  "value": "Gunn Austlid og Finn Morten Halle",
+  "status": "ubekreftet",
+  "blocks": "lansering",
+  "ask": "Teksten om deg nevner kiropraktor Gunn Austlid og Finn Morten Halle ved Stabekk kiropraktiske klinikk ved navn. Har de sagt ja til å bli nevnt?",
+  "source": "Olves arbeidsdokument v0.9 (docs/olve/olvelyngset_nettside_arbeidsdokument.md) §10",
+  "type": "paastand"
+ },
+ "videreutdanning_detaljer": {
+  "value": "Undervisning i Amsterdam (Carrick Institute) og kliniske opphold i Atlanta, USA",
+  "status": "ubekreftet",
+  "blocks": "lansering",
+  "ask": "Nøyaktig formulering av videreutdanningene (Amsterdam, Atlanta, vestibulær rehabilitering): navn, utsteder, år (§10 «Faktasjekk»)",
+  "source": "Olves arbeidsdokument v0.9 (docs/olve/olvelyngset_nettside_arbeidsdokument.md) §10",
+  "type": "paastand"
+ },
+ "opphold_tilbys": {
+  "value": "Intensivt opphold kan tilbys enkelte tilreisende etter direkte avtale",
+  "status": "bekreftet",
+  "blocks": "bygg",
+  "source": "Olve, intervju, gjengitt som avklart i Olves arbeidsdokument v0.9 (docs/olve/olvelyngset_nettside_arbeidsdokument.md) §18, mottatt 2026-11-17",
+  "type": "paastand"
+ },
+ "long_covid_opphold": {
+  "value": "ingen",
+  "status": "bekreftet",
+  "blocks": "bygg",
+  "source": "Olves arbeidsdokument v0.9 (docs/olve/olvelyngset_nettside_arbeidsdokument.md) §7 og §18: ikke markedsfør intensivopphold for long covid",
+  "type": "paastand"
+ },
+ "youtube_film": {
+  "value": "https://www.youtube.com/watch?v=7avfb-lI4Bs",
+  "status": "ubekreftet",
+  "blocks": "lansering",
+  "ask": "Skal YouTube-filmen bygges inn? Innhold, lyd, rettigheter og faglig aktualitet må gjennomgås først (§14).",
+  "source": "Olves arbeidsdokument v0.9 (docs/olve/olvelyngset_nettside_arbeidsdokument.md) §14",
+  "type": "paastand"
+ },
+ "diagnosetekster_gjennomgatt": {
+  "value": "",
+  "status": "ubekreftet",
+  "blocks": "lansering",
+  "ask": "Faglig gjennomlesning av de korte avsnittene om PPPD og MdDS (skrevet fra vinklingen i §12, vises ikke før du har lest dem), og om vestibularisnevritt og Ménières sykdom (bygger på helsenorge.no). Hvilket navn bruker du for PPPD på norsk?",
+  "type": "paastand"
+ },
+ "krystallsyken_url": {
+  "value": "https://www.krystallsyken.no",
+  "status": "bekreftet",
+  "blocks": "bygg",
+  "source": "Olves arbeidsdokument v0.9 (docs/olve/olvelyngset_nettside_arbeidsdokument.md) §16; søstersiden for krystallsyke"
+ },
+ "rode_flagg_hjernerystelse": {
+  "value": "redusert bevissthet, sterk hodepine som ikke går over, svimmelhet, kvalme, oppkast eller forvirring",
+  "status": "bekreftet",
+  "blocks": "bygg",
+  "type": "paastand",
+  "source": "helsenorge.no, Hjernerystelse (førstehjelp), «Symptomer som krever rask handling», lest 2026-11-18: https://www.helsenorge.no/forstehjelp/hjernerystelse/"
+ },
+ "kilde_hjernerystelse": {
+  "value": "https://www.helsenorge.no/forstehjelp/hjernerystelse/",
+  "status": "bekreftet",
+  "blocks": "bygg",
+  "source": "helsenorge.no, lest 2026-11-18"
+ },
+ "kilde_svimmelhet": {
+  "value": "https://www.helsenorge.no/sykdom/svimmelhet-og-balanseforstyrrelser/svimmelhet/",
+  "status": "bekreftet",
+  "blocks": "bygg",
+  "source": "helsenorge.no, lest 2026-11-18: «Tror du det er farlig eller lett kan bli det, skal du straks ringe 113»"
+ },
+ "hode_113": {
+  "value": "ikke våkner eller er vanskelig å vekke",
+  "status": "bekreftet",
+  "blocks": "bygg",
+  "type": "paastand",
+  "source": "helsenorge.no, Hjernerystelse (førstehjelp), «ikke våkner eller er vanskelig å vekke ... ringe 113 øyeblikkelig», lest 2026-11-18: https://www.helsenorge.no/forstehjelp/hjernerystelse/"
+ },
+ "kilde_hjerneslag": {
+  "value": "https://www.helsenorge.no/sykdom/hjerneslag",
+  "status": "bekreftet",
+  "blocks": "bygg",
+  "source": "helsenorge.no, Hjerneslag: «Ring 113 så fort som mogleg» ved problemer med å prate, smile eller løfte armene, lest 2026-11-18"
+ },
+ "kilde_vestibularisnevritt": {
+  "value": "https://www.helsenorge.no/sykdom/svimmelhet-og-balanseforstyrrelser/virus-pa-balansenerven-vestibularisnevritt/",
+  "status": "bekreftet",
+  "blocks": "bygg",
+  "source": "helsenorge.no, Virus på balansenerven (vestibularisnevritt): rask legeundersøkelse fordi symptomene kan komme av mer alvorlig sykdom, lest 2026-11-18"
+ },
+ "uten_henvisning": {
+  "value": "Du trenger ikke henvisning. Du kan bestille time selv.",
+  "status": "bekreftet",
+  "blocks": "lansering",
+  "type": "paastand",
+  "source": "Olves eget svar 2026-11-11: «Kreves ikke, pasient kan selv bestille» (krystallsyken/resultater/olve/2026-11-11-olve-svar-nettsiden.md)"
+ },
+ "telefon_eier": {
+  "value": "",
+  "status": "ubekreftet",
+  "blocks": "lansering",
+  "type": "paastand",
+  "ask": "Nummeret 906 66 485 står på krystallsyken.no i dag og vises nå også her. Er det resepsjonen hos Limbra eller ditt eget nummer, og skal det stå på olvelyngset.no?"
+ },
+ "adresse_kort": {
+  "value": "Storgata 25B, Lillestrøm",
+  "status": "bekreftet",
+  "blocks": "lansering",
+  "source": "Kortform av adresse, samme kilde: krystallsyken.no-repoet (src/site.config.ts, commit 3711b8c) og Tryms forhåndsvisning https://krystallsyken.hei-0de.workers.dev (noindex), sjekket 2026-11-18. «Storgata 25b» står også på dagens offentlige krystallsyken.no."
+ },
+ "apningstider_kort": {
+  "value": "Åpent mandag til fredag fra 07:30",
+  "status": "bekreftet",
+  "blocks": "lansering",
+  "source": "Kortform av apningstider, samme kilde: Olves eget svar 2026-11-11 (krystallsyken/resultater/olve/2026-11-11-olve-svar-nettsiden.md), også i krystallsyken.no-repoet (src/site.config.ts, commit 3711b8c) og Tryms forhåndsvisning https://krystallsyken.hei-0de.workers.dev (noindex), sjekket 2026-11-18. "
+ },
+ "bilderett_fotograf": {
+  "value": "",
+  "status": "ubekreftet",
+  "blocks": "lansering",
+  "type": "paastand",
+  "ask": "Portrettet tatt av fotograf Greger Flak (FLAK_PHOTO), som lå på den gamle krystallsyken.no, brukes nå som hovedportrett på forhåndsvisningen fordi det er det beste bildet vi har. Kan vi få skriftlig lisens fra fotografen til bruk på olvelyngset.no, og sier du ja til bildet? Finnes en større originalfil (dagens er 481 x 707 px)?",
+  "source": "Bildet: krystallsyken-repoet public/gammel/olve.jpg, fjernet i commit e5fb252 (2026-11-16) fordi rettighetene aldri ble avklart. EXIF: «Greger Flak - FLAK_PHOTO»."
+ },
+ "gateadresse": {
+  "value": "Storgata 25B",
+  "status": "bekreftet",
+  "blocks": "lansering",
+  "source": "Del av adresse, samme kilde: krystallsyken.no-repoet (src/site.config.ts, commit 3711b8c) og Tryms forhåndsvisning https://krystallsyken.hei-0de.workers.dev (noindex), sjekket 2026-11-18. «Storgata 25b» står også på dagens offentlige krystallsyken.no."
+ },
+ "postnummer": {
+  "value": "2000",
+  "status": "bekreftet",
+  "blocks": "lansering",
+  "source": "Del av adresse, samme kilde: krystallsyken.no-repoet (src/site.config.ts, commit 3711b8c) og Tryms forhåndsvisning https://krystallsyken.hei-0de.workers.dev (noindex), sjekket 2026-11-18. «Storgata 25b» står også på dagens offentlige krystallsyken.no."
+ },
+ "kart_lenke": {
+  "value": "https://www.google.com/maps/search/?api=1&query=Storgata+25B+2000+Lillestr%C3%B8m",
+  "status": "bekreftet",
+  "blocks": "lansering",
+  "source": "Kartsøk på adresse (samme kilde som adresse); krystallsyken-repoet contact.address.googleMapsUrl"
+ },
+ "samtykke_vog": {
+  "value": "",
+  "status": "ubekreftet",
+  "blocks": "lansering",
+  "type": "paastand",
+  "ask": "Samtykke fra personen på VOG-bildene (personen med videobrillene foran øre-plansjen og i profil): har hen sagt skriftlig ja til at bildene brukes på olvelyngset.no? Og hvem tok bildene?",
+  "source": "Klinikkens egne bilder, levert av Olve via Tryms repo (lest, ikke kopiert kode), hentet 2026-11-18"
+ }
+}

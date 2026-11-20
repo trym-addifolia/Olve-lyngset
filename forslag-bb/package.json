@@ -1,0 +1,36 @@
+{
+  "name": "olvelyngset-forslag",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3141",
+    "build": "next build",
+    "start": "next start -p 3141",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome lint .",
+    "format": "biome format --write .",
+    "check:keywords": "tsx scripts/check-keywords.mts",
+    "check": "npm run typecheck && npm run lint && npm run check:keywords && npm test && npm run build",
+    "qa:routes": "tsx scripts/qa-routes.mts http://localhost:3141",
+    "qa:axe": "tsx scripts/qa-axe.mts http://localhost:3141",
+    "qa:all": "npm run check && (npm run start & sleep 6; npm run qa:routes; R=$?; npm run qa:axe; A=$?; kill %1; exit $((R+A)))",
+    "test": "tsx scripts/test-draft.mts"
+  },
+  "dependencies": {
+    "next": "15.5.29",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@biomejs/biome": "^1.9.4",
+    "@types/node": "^20.19.43",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "playwright": "1.65.0",
+    "postcss": "^8.5.32",
+    "tailwindcss": "^3.4.19",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3"
+  }
+}
