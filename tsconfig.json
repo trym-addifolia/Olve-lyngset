@@ -25,5 +25,5 @@
     ".next/types/**/*.ts",
     "next-env.d.ts"
   ],
-  "exclude": ["node_modules", "scripts"]
+  "exclude": ["node_modules", "scripts", "forslag-bb"]
 }

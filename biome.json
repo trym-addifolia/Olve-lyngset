@@ -14,7 +14,8 @@
       "qa-out",
       ".open-next",
       ".wrangler",
-      "cloudflare-env.d.ts"
+      "cloudflare-env.d.ts",
+      "forslag-bb"
     ],
     "include": [
       "src/**/*.ts",
